@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "165374678765",
+    "project_id": "fpsjobs-422905",
+    "storage_bucket": "fpsjobs-422905.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165374678765:android:dd3d0c97422109b2301ee4",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165374678765-p0s13bvh493pq9qf17uedie15il74mvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh9wY7C68FOoiPKGZJtfJ-tIbiLynL6A4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165374678765-p0s13bvh493pq9qf17uedie15il74mvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
