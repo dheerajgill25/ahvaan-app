@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Image,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    TouchableOpacity
 } from 'react-native';
+// import GroupDataSvg from '../../../Assets/Svgs/GroupData.svg';
 
 import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
 import { useTheme } from '../../../Hooks/useTheme';
@@ -13,19 +15,20 @@ import { AppFontFamily } from '../../../Theme/Utils';
 import AppButton from '../../../Components/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ApplicationCard from '../../../Screen/ApplictionCartScreen';
+import FloatingMenu from '../Modal/FloatingMenu';
 
 const InvitationsContainer = () => {
     const theme = useTheme();
     const { value, style } = theme
+    const [visible, setVisible] = useState(false);
     return (
         <ScrollView contentContainerStyle={styles.scrollContent} style={styles.container}>
 
 
             <View style={styles.ImgConatiner}>
-                <Image
-                    style={{ width: "80%", height: "80%", resizeMode: 'contain', top: -50 }}
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData}
-                />
+
+                <THEME_DEFAULT_IMAGE.Template.GroupData style={{ width: "80%", height: "80%", top: -50 }}></THEME_DEFAULT_IMAGE.Template.GroupData>
+
                 <View>
 
                 </View>
@@ -39,9 +42,14 @@ const InvitationsContainer = () => {
 
 
             </View>
-            <View style={{ position: 'absolute', bottom: 75, right: 30 }}>
-                <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+            <View style={{ position: 'absolute', bottom: 75, right: 15 }}>
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                    <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                </TouchableOpacity>
             </View>
+            {visible && (
+                <FloatingMenu visible={visible} onclose={() => setVisible(false)} />
+            )}
         </ScrollView>
     );
 };

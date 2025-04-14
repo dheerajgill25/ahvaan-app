@@ -4,7 +4,6 @@ import {
     Image,
     StyleSheet,
     ScrollView,
-    Touchable,
     TouchableOpacity
 } from 'react-native';
 
@@ -15,74 +14,76 @@ import { AppFontFamily } from '../../../Theme/Utils';
 import AppButton from '../../../Components/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ApplicationCard from '../../../Screen/ApplictionCartScreen';
-import AppHeader from '../../../Components/AppHeader';
-import InvitationsContainer from './InvitationsContainer';
-import FloatingMenu from '../Modal/FloatingMenu';
 
-const EventsData = () => {
+
+import NavigationManager from '../../../Navigator/Component/NavigationManager';
+import { AppRoute } from '../../../Navigator/Component/AppRoute';
+import FloatingMenu from '../../MyEvents/Modal/FloatingMenu';
+
+
+const HistoryContainer = () => {
     const theme = useTheme();
     const { value } = theme;
+
     const [visible, setVisible] = useState(false);
     const events = [{
         title: "Wedding Party",
         dateTime: "02/27/2025, 11:30 AM",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
         // source: THEME_DEFAULT_IMAGE.Template.template
+        date: "1 Day ago"
     }];
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContent} style={styles.container}>
-            {/* {events.length > 0 ? (
+            {events.length > 0 ? (
                 events.map((event, index) => (
+
                     <ApplicationCard
                         key={index}
                         title={event.title}
                         dateTime={event.dateTime}
                         description={event.description}
+                        date={event.date}
                         // source={event.source} 
-                        onPress={() => { }}
+                        onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABS)}
                     />
                 ))
             ) : (
-                <> */}
-            <View style={styles.ImgConatiner}>
-                <Image
-                    style={{
-                        width: "80%",
-                        height: "80%",
-                        resizeMode: 'contain',
-                        top: -50
-                    }}
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData2}
-                />
-            </View>
-            <View style={styles.noEventContainer}>
-                <AppText
-                    variant='HeaderText'
-                    style={{
-                        color: value.color.black,
-                        fontFamily: AppFontFamily.POPPINS_REGULAR,
-                        textAlign: 'center',
-                        marginBottom: 10
-                    }}
-                >
-                    You’ve no Events yet!
-                </AppText>
-                <AppText
-                    variant='smallText'
-                    style={{ textAlign: 'center', marginBottom: 20 }}
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
-                </AppText>
-                {/* <AppButton
-                    borderRadius={50}
-                    variant='secondary'
-                    textColor={value.color.white}
-                    title='Create Events Now'
-                /> */}
-            </View>
-            {/* </>
-            )} */}
+                <>
+                    <View style={styles.ImgConatiner}>
+                        <Image
+                            style={{
+                                width: "100%",
+                                height: "80%",
+                                resizeMode: 'contain',
+                                top: -50
+                            }}
+                            source={THEME_DEFAULT_IMAGE.GurupImage.errorPng}
+                        />
+                    </View>
+                    <View style={styles.noEventContainer}>
+                        <AppText
+                            variant='HeaderText'
+                            style={{
+                                color: value.color.black,
+                                fontFamily: AppFontFamily.POPPINS_REGULAR,
+                                textAlign: 'center',
+                                marginBottom: 10
+                            }}
+                        >
+                            You’ve no History yet!
+                        </AppText>
+                        <AppText
+                            variant='smallText'
+                            style={{ textAlign: 'center', marginBottom: 20 }}
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+                        </AppText>
+
+                    </View>
+                </>
+            )}
 
             <View style={styles.floatingIcon}>
                 <TouchableOpacity onPress={() => setVisible(true)}>
@@ -97,13 +98,14 @@ const EventsData = () => {
     );
 };
 
-export default EventsData;
+export default HistoryContainer;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF8F8',
-        padding: 15
+        padding: 15,
+        paddingTop: 30
     },
     scrollContent: {
         flexGrow: 1,
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -170,
+        top: -200,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',

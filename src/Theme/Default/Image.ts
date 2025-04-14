@@ -1,4 +1,5 @@
 import GroupData from "../../Assets/Svgs/GroupData.svg"
+import error from "../../Assets/Svgs/error.svg"
 
 
 export const THEME_DEFAULT_IMAGE = {
@@ -19,12 +20,22 @@ export const THEME_DEFAULT_IMAGE = {
     GurupImage: {
         groupImage1: require('./../../Assets/Fonts/Images/Group.png'),
         groupData: require('./../../Assets/Fonts/Images/GroupDataNotFound.png'),
+        groupData2: require('./../../Assets/Fonts/Images/Group2.png'),
+        groupData3: require('./../../Assets/Fonts/Images/group3.png'),
+        errorPng: require('./../../Assets/Fonts/Images/error.png'),
 
     },
     Template: {
         template: require('./../../Assets/Fonts/Images/template.png'),
-        GroupData
+        template2: require('./../../Assets/Fonts/Images/template@2.png'),
+        GroupData,
+        error
     },
+    IconModal: {
+        icon1: require('./../../Assets/Fonts/Images/Icon1.png'),
+        frame: require('./../../Assets/Fonts/Images/Frame.png'),
+        layer: require('./../../Assets/Fonts/Images/Layer_1.png')
+    }
 };
 
 export type ThemeImageSet = typeof THEME_DEFAULT_IMAGE;

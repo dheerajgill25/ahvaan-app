@@ -39,7 +39,7 @@ const LandingScreen = () => {
                                 variant='primary'
                                 width="50%"
                                 borderRadius={50}
-                                onPress={() => { }} />
+                                onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABSCREEN)} />
                         </View>
                         <View style={styles.centers}>
                             <AppButton

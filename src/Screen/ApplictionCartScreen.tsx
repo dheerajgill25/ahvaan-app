@@ -4,6 +4,7 @@ import AppText from '../Components/AppText';
 import { AppFontFamily } from '../Theme/Utils';
 import LinearGradient from 'react-native-linear-gradient';
 import AppRow from '../Components/AppRow';
+import { useTheme } from '../Hooks/useTheme';
 
 type Props = {
     title: string;
@@ -12,9 +13,11 @@ type Props = {
     imageUrl?: string;
     source?: string
     onPress?: () => void
+    date?: string
 };
 
-const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress }: Props) => {
+const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date }: Props) => {
+    const { value } = useTheme()
     return (
         <>
             <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
@@ -32,6 +35,12 @@ const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress }: Pr
                         <AppText variant='smallText' style={styles.date}>{dateTime}</AppText>
                         <AppText variant='smallText' style={{ fontFamily: AppFontFamily.POPPINS_MEDIUM, color: '#000' }}>{title}</AppText>
                         <AppText variant='subheading' style={styles.description}>{description}</AppText>
+                    </View>
+                    <View>
+                        <AppText variant='subheading' style={{
+                            fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.mini,
+                            color: value.color.secondary
+                        }}> {date} </AppText>
                     </View>
                 </AppRow>
             </TouchableOpacity>

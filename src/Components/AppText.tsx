@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextProps, StyleSheet, TextStyle } from 'react-native';
 import { useTheme } from '../Hooks/useTheme';
 import { AppFontFamily } from "../Theme/Utils";
-type TextVariant = 'title' | 'heading' | 'subheading' | 'description' | 'LoginText' | "smallText" | "HeaderText";
+type TextVariant = 'title' | 'heading' | 'subheading' | 'description' | 'LoginText' | "smallText" | "HeaderText" | "cardTitle";
 
 interface AppTextProps extends TextProps {
     variant?: TextVariant;
@@ -15,6 +15,12 @@ const variantStyles: Record<TextVariant, TextStyle> = {
         fontSize: value.fontSize.large - 3,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
         color: value.color.white,
+
+    },
+    cardTitle: {
+        fontSize: value.fontSize.normal,
+        fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
+        color: value.color.black,
 
     },
     heading: {

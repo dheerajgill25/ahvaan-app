@@ -63,7 +63,7 @@ const HomeScreen = () => {
                                 variant='primary'
                                 width="40%"
                                 borderRadius={50}
-                                onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABSCREEN)}
+                                onPress={() => NavigationManager.navigationRef.navigate(AppRoute.LOGINSCREEN)}
                                 icon={<Icon name="chevron-right" size={20} color="#EC0D12" />} />
 
                         </View>

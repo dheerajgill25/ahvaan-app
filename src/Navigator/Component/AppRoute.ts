@@ -1,4 +1,6 @@
 import VerifyYourOTP from '../../Containers/SignIn/Screen/VerifyYourOTP';
+import FavoriteScreen from '../../Containers/History/Screen/FavoriteScreen';
+import WeddingCard from '../../Containers/ReviewEvent/Screen/WeddingCard';
 
 
 export enum AppRoute {
@@ -12,6 +14,10 @@ export enum AppRoute {
     EVENTCONTAINER = "EventConterner",
     TABSCREEN = "TABSCREEN",
     TABS = "TABS",
+    HISTORY_CONTAINER = "HistoryContainer",
+    FAVORITESCREEB = "FavoriteScreen",
+    WEDDINGCARD = "WeddingCard",
+    WEDDINGAPPLICTIONCARD = "Wedding_Applictioncard",
 }
 
 export type AppRouteParam = {
@@ -25,6 +31,10 @@ export type AppRouteParam = {
     [AppRoute.EVENTCONTAINER]: undefined;
     [AppRoute.TABSCREEN]: undefined;
     [AppRoute.TABS]: undefined;
+    [AppRoute.HISTORY_CONTAINER]: undefined;
+    [AppRoute.FAVORITESCREEB]: undefined;
+    [AppRoute.WEDDINGCARD]: undefined;
+    [AppRoute.WEDDINGAPPLICTIONCARD]: undefined;
 
 
 };

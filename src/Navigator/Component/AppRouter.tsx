@@ -15,6 +15,11 @@ import LoginVerify from "../../Containers/SignIn/Screen/LoginVerify";
 import EventContainer from "../../Containers/MyEvents/Screen/EventContainer";
 import TabButton from "../../Components/TabButton";
 import Tab from "../../Components/Tab";
+import HistoryContainer from "../../Containers/History/Screen/HistoryContainer";
+import AppMainHeader from "../../Components/AppMainHeader";
+import FavoriteScreen from "../../Containers/History/Screen/FavoriteScreen";
+import WeddingCard from "../../Containers/ReviewEvent/Screen/WeddingCard";
+import WeddingApplictionCard from "../../Screen/WeddingApplictionCard";
 
 
 
@@ -86,6 +91,42 @@ const AppRouter = () => {
                     name={AppRoute.TABS}
                     component={Tab}
                     options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name={AppRoute.HISTORY_CONTAINER}
+                    component={HistoryContainer}
+                    options={{
+                        header: () => (
+                            <AppMainHeader icon="tune" />
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name={AppRoute.FAVORITESCREEB}
+                    component={FavoriteScreen}
+                    options={{
+                        header: () => (
+                            <AppMainHeader titleText="Favorite" />
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name={AppRoute.WEDDINGCARD}
+                    component={WeddingCard}
+                    options={{
+                        header: () => (
+                            <AppMainHeader titleText="Review Event" icon="contacts" />
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name={AppRoute.WEDDINGAPPLICTIONCARD}
+                    component={WeddingApplictionCard}
+                    options={{
+                        header: () => (
+                            <AppMainHeader titleText="Review Event" icon="contacts" />
+                        ),
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

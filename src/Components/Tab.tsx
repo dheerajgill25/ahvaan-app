@@ -13,12 +13,6 @@ const Tab = () => {
 
     return (
         <View style={styles.container}>
-
-
-
-
-
-
             <ActiveHeader
                 activeTab={activeTabs}
                 handleTabChange={setActiveTabs}

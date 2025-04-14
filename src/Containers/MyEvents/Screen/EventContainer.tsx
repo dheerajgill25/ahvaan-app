@@ -58,6 +58,7 @@ const EventContainer = () => {
                             //@ts-ignore
                             source={THEME_DEFAULT_IMAGE.Template.GroupData}
                         />
+
                     </View>
                     <View style={styles.noEventContainer}>
                         <AppText
@@ -86,14 +87,16 @@ const EventContainer = () => {
                     </View>
                 </>
             )}
-            {/* <TouchableOpacity onPress={() => setVisible(true)}> */}
+
             <View style={styles.floatingIcon}>
-                <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                    <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                </TouchableOpacity>
             </View>
-            {/* </TouchableOpacity> */}
-            {/* {visible && (
-                <FloatingMenu visible={visible} onclose={() => setVisible(true)} />
-            )} */}
+
+            {visible && (
+                <FloatingMenu visible={visible} onclose={() => setVisible(false)} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.HISTORY_CONTAINER)} />
+            )}
         </ScrollView>
     );
 };
@@ -104,7 +107,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF8F8',
-        padding: 10
+        padding: 15,
+        marginTop: -10,
+        paddingTop: 30
     },
     scrollContent: {
         flexGrow: 1,
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
     },
     floatingIcon: {
         position: 'absolute',
-        bottom: 75,
-        right: 30,
+        bottom: 60,
+        right: 0,
     },
 });

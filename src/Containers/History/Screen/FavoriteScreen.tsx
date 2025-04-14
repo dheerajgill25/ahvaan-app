@@ -4,7 +4,6 @@ import {
     Image,
     StyleSheet,
     ScrollView,
-    Touchable,
     TouchableOpacity
 } from 'react-native';
 
@@ -15,19 +14,24 @@ import { AppFontFamily } from '../../../Theme/Utils';
 import AppButton from '../../../Components/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ApplicationCard from '../../../Screen/ApplictionCartScreen';
-import AppHeader from '../../../Components/AppHeader';
-import InvitationsContainer from './InvitationsContainer';
-import FloatingMenu from '../Modal/FloatingMenu';
 
-const EventsData = () => {
+
+import NavigationManager from '../../../Navigator/Component/NavigationManager';
+import { AppRoute } from '../../../Navigator/Component/AppRoute';
+import FloatingMenu from '../../MyEvents/Modal/FloatingMenu';
+
+
+const FavoriteScreen = () => {
     const theme = useTheme();
     const { value } = theme;
+
     const [visible, setVisible] = useState(false);
     const events = [{
         title: "Wedding Party",
         dateTime: "02/27/2025, 11:30 AM",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
         // source: THEME_DEFAULT_IMAGE.Template.template
+        date: "1 Day ago"
     }];
 
     return (
@@ -39,8 +43,9 @@ const EventsData = () => {
                         title={event.title}
                         dateTime={event.dateTime}
                         description={event.description}
+                        date={event.date}
                         // source={event.source} 
-                        onPress={() => { }}
+                        onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABS)}
                     />
                 ))
             ) : (
@@ -53,7 +58,7 @@ const EventsData = () => {
                         resizeMode: 'contain',
                         top: -50
                     }}
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData2}
+                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData3}
                 />
             </View>
             <View style={styles.noEventContainer}>
@@ -66,7 +71,7 @@ const EventsData = () => {
                         marginBottom: 10
                     }}
                 >
-                    You’ve no Events yet!
+                    You’ve no Favorites yet!
                 </AppText>
                 <AppText
                     variant='smallText'
@@ -74,12 +79,7 @@ const EventsData = () => {
                 >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
                 </AppText>
-                {/* <AppButton
-                    borderRadius={50}
-                    variant='secondary'
-                    textColor={value.color.white}
-                    title='Create Events Now'
-                /> */}
+
             </View>
             {/* </>
             )} */}
@@ -97,13 +97,14 @@ const EventsData = () => {
     );
 };
 
-export default EventsData;
+export default FavoriteScreen;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF8F8',
-        padding: 15
+        padding: 15,
+        marginTop: -10
     },
     scrollContent: {
         flexGrow: 1,
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -170,
+        top: -200,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',

@@ -62,7 +62,9 @@ export const THEME_DEFAULT_COLOR = {
     splashlinearcolor: "#9D0000",
     unSubscribeBroderColor: "#232323",
     placeHolderColor: "#BABABA",
-    samlltextColor: "#ACACAC"
+    samlltextColor: "#ACACAC",
+    modaltext: "#7D7D7D",
+    Modalborder: "#ECECEC"
 };
 
 export type ThemeColor = typeof THEME_DEFAULT_COLOR;

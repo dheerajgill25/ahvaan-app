@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 30,
         paddingBottom: 10,
-        marginBottom: 10,
+        marginBottom: 0,
         backgroundColor: '#FF0000',
     },
     tabWrapper: {
