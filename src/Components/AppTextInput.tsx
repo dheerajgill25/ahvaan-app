@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     ViewStyle,
     TextStyle,
     TextInputProps,
+    TouchableOpacity,
 } from "react-native";
 import { useTheme } from "../Hooks/useTheme";
 import { AppFontFamily } from "../Theme/Utils";
@@ -32,7 +33,7 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
         },
         placeholder: {
             position: "absolute",
-            left: 18,
+            left: 17,
             top: 13,
             fontSize: value.fontSize.small,
             color: value.color.placeHolderColor,
@@ -98,11 +99,10 @@ export const AppTextInput = ({
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState(props.value?.toString() || "");
     const { value } = useTheme();
-
+    const inputRef = useRef<TextInput>(null);
     const dynamicInputStyle: ViewStyle = {
         backgroundColor: editable ? backgroundColor ?? "#fff" : "#f7f7f7",
         borderColor: value.color.borderColor,
-
         borderWidth: 1,
         borderRadius: borderRadius?.borderRadius,
         borderTopLeftRadius:
@@ -117,37 +117,46 @@ export const AppTextInput = ({
 
     return (
         <View>
-            {label && <Text style={[
-                themeStyle.label,
-                labelStyle,
-                labelColor && { color: labelColor },
-            ]}>{label}</Text>}
-            <View style={{ position: "relative" }}>
-                {!text && !isFocused && Placeholder && (
-                    <Text
-                        style={[
-                            themeStyle.placeholder,
-                            { pointerEvents: "none" },
-                            placeholderColor && { color: placeholderColor },
-                        ]}
-                    >
-                        {Placeholder}
-                    </Text>
-                )}
-                <TextInput
-                    {...props}
-                    value={text}
-                    editable={editable}
-                    onChangeText={(t) => {
-                        setText(t);
-                        props.onChangeText?.(t);
-                    }}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    style={[themeStyle.inputBase, dynamicInputStyle, style]}
-                    placeholder=""
-                />
-            </View>
+            {label && (
+                <Text
+                    style={[
+                        themeStyle.label,
+                        labelStyle,
+                        labelColor && { color: labelColor },
+                    ]}
+                >
+                    {label}
+                </Text>
+            )}
+            <TouchableOpacity activeOpacity={1} onPress={() => inputRef.current?.focus()}>
+                <View >
+                    {!text && Placeholder && (
+                        <Text
+                            style={[
+                                themeStyle.placeholder,
+                                // { pointerEvents: "none" },
+                                placeholderColor && { color: placeholderColor },
+                            ]}
+                        >
+                            {Placeholder}
+                        </Text>
+                    )}
+                    <TextInput
+                        {...props}
+                        ref={inputRef}
+                        value={text}
+                        editable={editable}
+                        onChangeText={(t) => {
+                            setText(t);
+                            props.onChangeText?.(t);
+                        }}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        style={[themeStyle.inputBase, dynamicInputStyle, style]}
+                        placeholder={Placeholder || placeholderColor}
+                    />
+                </View>
+            </TouchableOpacity>
             {errorText && (
                 <Text style={[themeStyle.errorText, errorStyle]}>
                     {errorText}

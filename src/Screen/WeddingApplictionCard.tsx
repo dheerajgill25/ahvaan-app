@@ -7,6 +7,8 @@ import AppRow from '../Components/AppRow';
 import { useTheme } from '../Hooks/useTheme';
 import AppButton from '../Components/AppButton';
 import { THEME_DEFAULT_IMAGE } from '../Theme/Default/Image';
+import NavigationManager from '../Navigator/Component/NavigationManager';
+import { AppRoute } from '../Navigator/Component/AppRoute';
 
 type Props = {
     title: string;
@@ -41,7 +43,11 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
 
 
                         <View style={styles.content}>
-                            <AppText style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.alternative }}>{dateTime}Wedding Party 👰‍♀️🤵</AppText>
+                            <AppRow alignItems='center' gap='10'>
+                                <AppText style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.alternative }}>{dateTime}Wedding Party</AppText>
+                                <THEME_DEFAULT_IMAGE.IconModal.Frame width={15} height={15}></THEME_DEFAULT_IMAGE.IconModal.Frame>
+                            </AppRow>
+
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{dateTime}08/03/2025 , 3.30PM </AppText>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
@@ -76,12 +82,15 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
 
 
                         <View style={styles.content}>
-                            <AppText style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.alternative }}>{dateTime}Wedding Party <Text style={{ width: 15 }}>👰‍♀️🤵</Text> </AppText>
+                            <AppRow alignItems='center' gap='10'>
+                                <AppText style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.alternative }}>{dateTime}Wedding Party</AppText>
+                                <THEME_DEFAULT_IMAGE.IconModal.Frame width={15} height={15}></THEME_DEFAULT_IMAGE.IconModal.Frame>
+                            </AppRow>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{dateTime}08/03/2025 , 3.30PM </AppText>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
                             <AppText variant='subheading' style={{ color: '#000', marginBottom: 10 }}>{description} Welcome</AppText>
-                            <AppButton title={'Re-Create'} borderRadius={50} variant='secondary' textColor='white' width={"50%"} />
+                            <AppButton title={'Re-Create'} borderRadius={50} variant='secondary' textColor='white' width={"50%"} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.GuestListConatiner)} />
                         </View>
                         <View>
                             <AppText variant='subheading' style={{
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 3,
+        elevation: 1,
         borderWidth: 1,
         borderColor: '#f3f3f3',
         width: "94%"

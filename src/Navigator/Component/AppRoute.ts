@@ -18,6 +18,8 @@ export enum AppRoute {
     FAVORITESCREEB = "FavoriteScreen",
     WEDDINGCARD = "WeddingCard",
     WEDDINGAPPLICTIONCARD = "Wedding_Applictioncard",
+    GuestListConatiner = "GuestListConatiner",
+    MYPROFILE = "MyProfile",
 }
 
 export type AppRouteParam = {
@@ -35,6 +37,8 @@ export type AppRouteParam = {
     [AppRoute.FAVORITESCREEB]: undefined;
     [AppRoute.WEDDINGCARD]: undefined;
     [AppRoute.WEDDINGAPPLICTIONCARD]: undefined;
+    [AppRoute.GuestListConatiner]: undefined;
+    [AppRoute.MYPROFILE]: undefined;
 
 
 };

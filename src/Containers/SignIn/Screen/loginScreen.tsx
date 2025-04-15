@@ -9,17 +9,17 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 
 
-const LandingScreen = () => {
+const loginScreen = () => {
     const theme = useTheme();
     const { value, style } = theme;
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.imageContainer}>
-                <Image
+                {/* <Image
                     source={THEME_DEFAULT_IMAGE.GurupImage.groupImage1}
-                    style={styles.gridImage}
-                />
-
+                
+                /> */}
+                <THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard ></THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard>
                 <LinearGradient
                     colors={['rgba(255, 255, 255, 0)', '#C50104', '#A70003']}
                     locations={[0.100, 0.300, 0.38271, 1]}
@@ -60,7 +60,7 @@ const LandingScreen = () => {
     );
 };
 
-export default LandingScreen;
+export default loginScreen;
 
 const styles = StyleSheet.create({
     container: {

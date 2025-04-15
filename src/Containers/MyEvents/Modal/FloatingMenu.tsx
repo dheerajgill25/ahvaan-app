@@ -112,16 +112,16 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         top: -90,
-        left: -0,
+        left: 0,
         padding: 20,
-        zIndex: 1
+
     },
     modalContent: {
         width: 140,
         backgroundColor: 'white',
-        borderRadius: 10,
+        borderRadius: 5,
         paddingVertical: 10,
-        elevation: 10,
+        elevation: 1,
     },
     item: {
         flexDirection: 'row',

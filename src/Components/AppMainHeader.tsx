@@ -8,6 +8,7 @@ import { AppFontFamily } from '../Theme/Utils';
 import { useTheme } from '../Hooks/useTheme';
 import NavigationManager from '../Navigator/Component/NavigationManager';
 import FilterHistoryModal from '../Containers/History/Modal/FilterHistoryModal';
+import { THEME_DEFAULT_IMAGE } from '../Theme/Default/Image';
 
 interface HeaderProps {
     onBackPress?: () => void;
@@ -15,6 +16,8 @@ interface HeaderProps {
     titleText?: string;
     iconName?: string;
     icon?: string
+    Contact?: string
+    favorite?: string
 
 }
 
@@ -23,15 +26,17 @@ const Header: React.FC<HeaderProps> = ({
     onFilterPress,
     titleText = 'History',
     iconName = 'chevron-left',
-    icon
+    icon,
+    Contact,
+    favorite
 }) => {
     const { value } = useTheme();
     const [visible, setVisible] = useState(false);
 
     return (
         <LinearGradient colors={['#e60000', '#cc0000']} style={styles.headerContainer}>
-            <AppRow alignItems="center" justifyContent="space-between" style={{ zIndex: 1 }}>
-                <TouchableOpacity onPress={onBackPress}>
+            <AppRow alignItems="center" justifyContent="space-between" >
+                <TouchableOpacity >
                     <AppRow alignItems="center" gap="10">
                         <Icon
                             name={iconName}
@@ -51,13 +56,19 @@ const Header: React.FC<HeaderProps> = ({
                     </AppRow>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.8} onPress={() => setVisible(true)} style={{ zIndex: 1 }}>
+                <TouchableOpacity activeOpacity={0.8}
+                    onPress={() => setVisible(prev => !prev)}
+                    style={{ zIndex: 999 }}
+                >
                     {icon && <Icon name={icon} size={24} color={value.color.white} />}
+
                 </TouchableOpacity>
+                {Contact && <THEME_DEFAULT_IMAGE.IconModal.HeaderIocn />}
+                {favorite && <THEME_DEFAULT_IMAGE.IconModal.Heart />}
             </AppRow>
 
             {visible && (
-                <FilterHistoryModal visible={visible} onclose={() => setVisible(false)} />
+                <FilterHistoryModal visible={visible} onclose={() => setVisible(false)} onPress={() => setVisible(false)} />
             )}
         </LinearGradient>
     );
@@ -68,7 +79,7 @@ const styles = StyleSheet.create({
         height: 60,
         paddingHorizontal: 16,
         paddingVertical: 16,
-        zIndex: 1,
+
     },
     title: {
         color: '#fff',

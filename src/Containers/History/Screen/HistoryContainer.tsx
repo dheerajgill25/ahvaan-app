@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     View,
     Image,
@@ -19,6 +19,7 @@ import ApplicationCard from '../../../Screen/ApplictionCartScreen';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import FloatingMenu from '../../MyEvents/Modal/FloatingMenu';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 const HistoryContainer = () => {
@@ -26,6 +27,9 @@ const HistoryContainer = () => {
     const { value } = theme;
 
     const [visible, setVisible] = useState(false);
+
+
+
     const events = [{
         title: "Wedding Party",
         dateTime: "02/27/2025, 11:30 AM",
@@ -51,17 +55,11 @@ const HistoryContainer = () => {
                 ))
             ) : (
                 <>
-                    <View style={styles.ImgConatiner}>
-                        <Image
-                            style={{
-                                width: "100%",
-                                height: "80%",
-                                resizeMode: 'contain',
-                                top: -50
-                            }}
-                            source={THEME_DEFAULT_IMAGE.GurupImage.errorPng}
-                        />
+
+                    <View style={{ marginTop: 40 }}>
+                        <THEME_DEFAULT_IMAGE.Template.error />
                     </View>
+
                     <View style={styles.noEventContainer}>
                         <AppText
                             variant='HeaderText'
@@ -86,14 +84,18 @@ const HistoryContainer = () => {
             )}
 
             <View style={styles.floatingIcon}>
-                <TouchableOpacity onPress={() => setVisible(true)}>
+                <TouchableOpacity onPress={() => setVisible(prv => !prv)}>
                     <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
                 </TouchableOpacity>
             </View>
 
             {visible && (
-                <FloatingMenu visible={visible} onclose={() => setVisible(false)} />
-            )}
+                <FloatingMenu visible={visible}
+                    onclose={() => setVisible(false)}
+                    onPress={() => setVisible(false)}
+
+                />)}
+
         </ScrollView>
     );
 };
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF8F8',
         padding: 15,
-        paddingTop: 30
+        paddingTop: 10
     },
     scrollContent: {
         flexGrow: 1,
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -200,
+        top: -0,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',

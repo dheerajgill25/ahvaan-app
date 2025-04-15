@@ -5,205 +5,124 @@ import {
     TouchableOpacity,
     Text,
     StyleSheet,
-    Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Foundation';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppText from '../../../Components/AppText';
 import { useTheme } from '../../../Hooks/useTheme';
 import AppRow from '../../../Components/AppRow';
-import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
+import NewStar from '../../../Assets/Icon/NewStar';
+import WatchTime from '../../../Assets/Icon/WatchTime';
+import EventIcon from '../../../Assets/Icon/EventIcon';
+import InvitationIcon from '../../../Assets/Icon/InvitationIocn';
 
 interface Props {
     visible: boolean;
     onclose: () => void;
     onPress?: () => void;
-    favoriteButton?: () => void
+    favoriteButton?: () => void;
 }
 
-const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress, favoriteButton }) => {
+const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress }) => {
     const theme = useTheme();
     const { value } = theme;
+
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-    const handleClose = () => {
-        onclose();
-    };
     const renderSeparator = () => (
-        <AppRow alignItems="center" justifyContent="center" style={{ width: '100%', marginTop: -5, marginBottom: 6 }}>
-            <Text style={{ borderBottomColor: value.color.Modalborder, borderBottomWidth: 1, width: 110 }}> </Text>
+        <AppRow
+            alignItems="center"
+            justifyContent="center"
+            style={{ width: '100%', marginTop: -5, marginBottom: 6 }}
+        >
+            <Text
+                style={{
+                    borderBottomColor: value.color.Modalborder,
+                    borderBottomWidth: 1,
+                    width: 110,
+                }}
+            />
         </AppRow>
     );
-    return (
-        <View style={styles.container}>
-            <Modal
-                transparent
-                animationType="fade"
-                visible={visible}
-                onRequestClose={handleClose}
-            >
-                <TouchableOpacity
-                    style={styles.modalOverlay}
-                    onPress={handleClose}
-                    activeOpacity={1}
-                >
-                    <View style={styles.modalContent}>
-                        <TouchableOpacity
-                            // style={styles.item}
-                            onPress={() => {
-                                setSelectedItem('Newest');
-                                onPress && onPress();
-                                NavigationManager.navigationRef.navigate(AppRoute.WEDDINGCARD);
 
-                            }}
-                        >
-                            <AppRow >
-                                <Image
-                                    source={(THEME_DEFAULT_IMAGE.IconModal.icon1)}
-                                    style={{
-                                        width: 20,
-                                        height: 20,
-                                        marginLeft: 10,
-                                        tintColor: selectedItem === 'Newest' ? value.color.secondary : value.color.modaltext
-                                    }}
-                                />
-                                <AppText
-                                    variant="smallText"
-                                    style={{
-                                        color: selectedItem === 'Newest'
-                                            ? value.color.secondary
-                                            : value.color.modaltext,
-                                        marginLeft: 10,
-                                    }}
-                                >
-                                    Newest
-                                </AppText>
-                            </AppRow>
-                        </TouchableOpacity>
-                        {renderSeparator()}
-                        <TouchableOpacity
-                            onPress={() => {
-                                setSelectedItem('Oldest');
-                                onPress && onPress();
-                            }}
-                        >
-                            <AppRow >
+    const handleSelect = (label: string, navigateTo?: AppRoute) => {
+        setSelectedItem(label);
+        onPress && onPress();
 
-                                <Icons name="history" size={20} color={selectedItem === 'Oldest'
-                                    ? value.color.secondary
-                                    : value.color.modaltext}
-                                    style={{ marginLeft: 10 }} />
-                                <AppText
-                                    variant="smallText"
-                                    style={{
-                                        color: selectedItem === 'Oldest'
-                                            ? value.color.secondary
-                                            : value.color.modaltext,
-                                        marginLeft: 10,
-                                    }}
-                                >
-                                    Oldest
-                                </AppText>
-                            </AppRow>
-                            {renderSeparator()}
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setSelectedItem('Event')}
-                        >
-                            <AppRow>
-                                <Image
-                                    source={(THEME_DEFAULT_IMAGE.IconModal.frame)}
-                                    style={{
-                                        width: 20,
-                                        height: 20,
-                                        marginLeft: 10,
-                                        tintColor: selectedItem === 'Event' ? value.color.secondary : value.color.modaltext
-                                    }}
-                                />
-                                {/* <Icon name="heart-outline" size={20} color={selectedItem === 'Event'
-                                    ? value.color.secondary
-                                    : value.color.modaltext}
-                                    style={{ marginLeft: 10 }} onPress={favoriteButton} /> */}
-                                <AppText variant='smallText'
-                                    style={{
-                                        color: selectedItem === 'Event'
-                                            ? value.color.secondary
-                                            : value.color.modaltext,
-                                        marginLeft: 10,
-                                    }}
-                                >
-                                    Event
-                                </AppText>
-                            </AppRow>
-                        </TouchableOpacity>
-                        {renderSeparator()}
-                        <TouchableOpacity
-                            onPress={() => setSelectedItem('Invitation')}
-                        >
-                            <AppRow>
-                                <Image
-                                    source={(THEME_DEFAULT_IMAGE.IconModal.layer)}
-                                    resizeMode='contain'
-                                    style={{
-                                        width: 20,
-                                        height: 20,
-                                        marginLeft: 10,
+        if (navigateTo) {
+            NavigationManager.navigationRef.navigate(navigateTo);
+        }
+    };
 
-                                        tintColor: selectedItem === 'Invitation' ? value.color.secondary : value.color.modaltext
-                                    }}
-                                />
-                                {/* <Icon name="heart-outline" size={20} color={selectedItem === 'Invitation'
-                                    ? value.color.secondary
-                                    : value.color.modaltext}
-                                    style={{ marginLeft: 10 }} onPress={favoriteButton} /> */}
-                                <AppText variant='smallText'
-                                    style={{
-                                        color: selectedItem === 'Invitation'
-                                            ? value.color.secondary
-                                            : value.color.modaltext,
-                                        marginLeft: 10,
-                                    }}
-                                >
-                                    Invitation
-                                </AppText>
-                            </AppRow>
-                        </TouchableOpacity>
+    const renderOption = (
+        label: string,
+        IconComponent: React.ReactElement,
+        navigateTo?: AppRoute
+    ) => {
+        const isSelected = selectedItem === label;
+        const iconColor = isSelected ? value.color.secondary : value.color.modaltext;
 
-
+        return (
+            <TouchableOpacity onPress={() => handleSelect(label, navigateTo)} activeOpacity={0.7}>
+                <AppRow>
+                    <View style={{ marginLeft: 10 }}>
+                        {React.cloneElement(IconComponent, { color: iconColor })}
                     </View>
-                </TouchableOpacity>
-            </Modal>
-        </View>
+                    <AppText 
+                        variant="smallText"
+                        style={{
+                            color: iconColor,
+                            marginLeft: 10,
+                        }}
+                    >
+                        {label}
+                    </AppText>
+                </AppRow>
+            </TouchableOpacity>
+        );
+    };
+
+    return (
+        <Modal
+            transparent
+            animationType="fade"
+            visible={visible}
+            onRequestClose={onclose}
+        >
+            <TouchableOpacity
+                style={styles.modalOverlay}
+                onPress={onclose}
+                activeOpacity={1}
+            >
+                <View style={styles.modalContent}>
+                    {renderOption('Newest', <NewStar />, AppRoute.WEDDINGCARD)}
+                    {renderSeparator()}
+                    {renderOption('Oldest', <WatchTime />, AppRoute.MYPROFILE)}
+                    {renderSeparator()}
+                    {renderOption('Event', <EventIcon />)}
+                    {renderSeparator()}
+                    {renderOption('Invitation', <InvitationIcon />)}
+                </View>
+            </TouchableOpacity>
+        </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     modalOverlay: {
-
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        top: 40,
-        left: 8,
-        padding: 20,
-
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        paddingTop: 60,
+        paddingLeft: 230,
+        backgroundColor: 'rgba(0, 0, 0, 0.01)',
     },
     modalContent: {
         width: 115,
-        height: 150,
         backgroundColor: 'white',
         borderRadius: 5,
         paddingVertical: 10,
-        elevation: 1,
-    },
-    item: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 5,
+        elevation: 2,
     },
 });
 

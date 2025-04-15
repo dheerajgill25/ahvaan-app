@@ -5,6 +5,7 @@ import AppRow from '../../../Components/AppRow';
 import { useTheme } from '../../../Hooks/useTheme';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
+import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
 
 const WeddingCard = () => {
     const { value } = useTheme()
@@ -12,7 +13,10 @@ const WeddingCard = () => {
         <View style={{ backgroundColor: "#FFF8F8", flex: 1 }}>
             <TouchableOpacity activeOpacity={0.8} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.WEDDINGAPPLICTIONCARD)}>
                 <View style={styles.card} >
-                    <AppText variant='cardTitle' >Wedding Party 👰‍♀️🤵</AppText>
+                    <AppRow gap='10' alignItems='center'>
+                        <AppText variant='cardTitle' >Wedding Party</AppText>
+                        <THEME_DEFAULT_IMAGE.IconModal.Frame width={32}></THEME_DEFAULT_IMAGE.IconModal.Frame>
+                    </AppRow>
 
                     <AppRow gap='10px' style={{ marginVertical: 5 }}>
                         <View style={{ width: 100 }}>

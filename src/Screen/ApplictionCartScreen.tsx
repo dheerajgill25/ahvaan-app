@@ -60,9 +60,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 3,
-        borderWidth: 1,
-        borderColor: '#f3f3f3',
+        elevation: 1,
+
         width: "100%"
     },
     image: {

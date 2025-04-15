@@ -20,6 +20,9 @@ import AppMainHeader from "../../Components/AppMainHeader";
 import FavoriteScreen from "../../Containers/History/Screen/FavoriteScreen";
 import WeddingCard from "../../Containers/ReviewEvent/Screen/WeddingCard";
 import WeddingApplictionCard from "../../Screen/WeddingApplictionCard";
+import { THEME_DEFAULT_IMAGE } from "../../Theme/Default/Image";
+import GuestListConatiner from "../../Containers/GuestList/Screen/GuestListConatiner";
+import ProfileData from "../../MyProfile/Screen/ProfileData";
 
 
 
@@ -115,7 +118,8 @@ const AppRouter = () => {
                     component={WeddingCard}
                     options={{
                         header: () => (
-                            <AppMainHeader titleText="Review Event" icon="contacts" />
+                            <AppMainHeader titleText="Review Event" Contact={THEME_DEFAULT_IMAGE} />
+
                         ),
                     }}
                 />
@@ -124,9 +128,23 @@ const AppRouter = () => {
                     component={WeddingApplictionCard}
                     options={{
                         header: () => (
-                            <AppMainHeader titleText="Review Event" icon="contacts" />
+                            <AppMainHeader titleText="Review Event" Contact={THEME_DEFAULT_IMAGE} />
                         ),
                     }}
+                />
+                <Stack.Screen
+                    name={AppRoute.GuestListConatiner}
+                    component={GuestListConatiner}
+                    options={{
+                        header: () => (
+                            <AppMainHeader titleText="Review Event" favorite={THEME_DEFAULT_IMAGE} />
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name={AppRoute.MYPROFILE}
+                    component={ProfileData}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

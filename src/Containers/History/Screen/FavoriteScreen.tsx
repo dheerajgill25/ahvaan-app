@@ -14,7 +14,7 @@ import { AppFontFamily } from '../../../Theme/Utils';
 import AppButton from '../../../Components/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ApplicationCard from '../../../Screen/ApplictionCartScreen';
-
+import AppHeader from '../../../Components/AppHeader';
 
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
@@ -31,7 +31,6 @@ const FavoriteScreen = () => {
         dateTime: "02/27/2025, 11:30 AM",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
         // source: THEME_DEFAULT_IMAGE.Template.template
-        date: "1 Day ago"
     }];
 
     return (
@@ -43,46 +42,37 @@ const FavoriteScreen = () => {
                         title={event.title}
                         dateTime={event.dateTime}
                         description={event.description}
-                        date={event.date}
                         // source={event.source} 
                         onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABS)}
                     />
                 ))
-            ) : (
-                <> */}
-            <View style={styles.ImgConatiner}>
-                <Image
-                    style={{
-                        width: "80%",
-                        height: "80%",
-                        resizeMode: 'contain',
-                        top: -50
-                    }}
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData3}
-                />
-            </View>
-            <View style={styles.noEventContainer}>
-                <AppText
-                    variant='HeaderText'
-                    style={{
-                        color: value.color.black,
-                        fontFamily: AppFontFamily.POPPINS_REGULAR,
-                        textAlign: 'center',
-                        marginBottom: 10
-                    }}
-                >
-                    You’ve no Favorites yet!
-                </AppText>
-                <AppText
-                    variant='smallText'
-                    style={{ textAlign: 'center', marginBottom: 20 }}
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
-                </AppText>
+            ) : ( */}
+            <>
 
-            </View>
-            {/* </>
-            )} */}
+                <THEME_DEFAULT_IMAGE.IconModal.Obeject></THEME_DEFAULT_IMAGE.IconModal.Obeject>
+
+                <View style={styles.noEventContainer}>
+                    <AppText
+                        variant='HeaderText'
+                        style={{
+                            color: value.color.black,
+                            fontFamily: AppFontFamily.POPPINS_REGULAR,
+                            textAlign: 'center',
+                            marginBottom: 10
+                        }}
+                    >
+                        You’ve no Favorites yet!
+                    </AppText>
+                    <AppText
+                        variant='smallText'
+                        style={{ textAlign: 'center', marginBottom: 20 }}
+                    >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+                    </AppText>
+
+                </View>
+            </>
+            {/* )} */}
 
             <View style={styles.floatingIcon}>
                 <TouchableOpacity onPress={() => setVisible(true)}>
@@ -91,7 +81,7 @@ const FavoriteScreen = () => {
             </View>
 
             {visible && (
-                <FloatingMenu visible={visible} onclose={() => setVisible(false)} />
+                <FloatingMenu visible={visible} onclose={() => setVisible(false)} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.HISTORY_CONTAINER)} />
             )}
         </ScrollView>
     );
@@ -104,7 +94,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF8F8',
         padding: 15,
-        marginTop: -10
+        marginTop: -10,
+        paddingTop: 30
     },
     scrollContent: {
         flexGrow: 1,
@@ -119,7 +110,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -200,
+        top: 0,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',

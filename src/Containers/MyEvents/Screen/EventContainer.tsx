@@ -47,19 +47,9 @@ const EventContainer = () => {
                 ))
             ) : (
                 <>
-                    <View style={styles.ImgConatiner}>
-                        <Image
-                            style={{
-                                width: "80%",
-                                height: "80%",
-                                resizeMode: 'contain',
-                                top: -50
-                            }}
-                            //@ts-ignore
-                            source={THEME_DEFAULT_IMAGE.Template.GroupData}
-                        />
 
-                    </View>
+                    <THEME_DEFAULT_IMAGE.Template.GroupData></THEME_DEFAULT_IMAGE.Template.GroupData>
+
                     <View style={styles.noEventContainer}>
                         <AppText
                             variant='HeaderText'
@@ -108,8 +98,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF8F8',
         padding: 15,
-        marginTop: -10,
-        paddingTop: 30
+        marginTop: "auto",
+        paddingTop: 10
     },
     scrollContent: {
         flexGrow: 1,
@@ -124,7 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -170,
+        top: 0,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',

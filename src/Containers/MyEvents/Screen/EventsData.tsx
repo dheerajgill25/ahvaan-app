@@ -32,7 +32,7 @@ const EventsData = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContent} style={styles.container}>
-            {/* {events.length > 0 ? (
+            {events.length > 0 ? (
                 events.map((event, index) => (
                     <ApplicationCard
                         key={index}
@@ -44,45 +44,39 @@ const EventsData = () => {
                     />
                 ))
             ) : (
-                <> */}
-            <View style={styles.ImgConatiner}>
-                <Image
-                    style={{
-                        width: "80%",
-                        height: "80%",
-                        resizeMode: 'contain',
-                        top: -50
-                    }}
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupData2}
-                />
-            </View>
-            <View style={styles.noEventContainer}>
-                <AppText
-                    variant='HeaderText'
-                    style={{
-                        color: value.color.black,
-                        fontFamily: AppFontFamily.POPPINS_REGULAR,
-                        textAlign: 'center',
-                        marginBottom: 10
-                    }}
-                >
-                    You’ve no Events yet!
-                </AppText>
-                <AppText
-                    variant='smallText'
-                    style={{ textAlign: 'center', marginBottom: 20 }}
-                >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
-                </AppText>
-                {/* <AppButton
+                <>
+
+                    <View style={{ marginTop: 40 }}>
+                        <THEME_DEFAULT_IMAGE.Template.GroupData style={{ marginVertical: 20 }}></THEME_DEFAULT_IMAGE.Template.GroupData>
+                    </View>
+
+                    <View style={styles.noEventContainer}>
+                        <AppText
+                            variant='HeaderText'
+                            style={{
+                                color: value.color.black,
+                                fontFamily: AppFontFamily.POPPINS_REGULAR,
+                                textAlign: 'center',
+                                marginBottom: 10
+                            }}
+                        >
+                            You’ve no Events yet!
+                        </AppText>
+                        <AppText
+                            variant='smallText'
+                            style={{ textAlign: 'center', marginBottom: 20 }}
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+                        </AppText>
+                        {/* <AppButton
                     borderRadius={50}
                     variant='secondary'
                     textColor={value.color.white}
                     title='Create Events Now'
                 /> */}
-            </View>
-            {/* </>
-            )} */}
+                    </View>
+                </>
+            )}
 
             <View style={styles.floatingIcon}>
                 <TouchableOpacity onPress={() => setVisible(true)}>
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     noEventContainer: {
-        top: -170,
+        top: 0,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
