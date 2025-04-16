@@ -79,8 +79,9 @@ const EventContainer = () => {
             )}
 
             <View style={styles.floatingIcon}>
-                <TouchableOpacity onPress={() => setVisible(true)}>
-                    <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                <TouchableOpacity onPress={() => setVisible(prv => !prv)}>
+                    <THEME_DEFAULT_IMAGE.IconModal.Manu />
+
                 </TouchableOpacity>
             </View>
 

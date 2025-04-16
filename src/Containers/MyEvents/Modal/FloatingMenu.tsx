@@ -16,7 +16,7 @@ interface Props {
     visible: boolean;
     onclose: () => void;
     onPress?: () => void;
-    favoriteButton?: () => void
+    favoriteButton?: () => void;
 }
 
 const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButton }) => {
@@ -27,7 +27,6 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
     const handleClose = () => {
         setSelectedItem(null);
         onclose();
-
     };
 
     return (
@@ -52,25 +51,21 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
                                     onPress && onPress();
                                 }}
                             >
-                                <Icon name="history" size={20} color={selectedItem === 'history'
-                                    ? value.color.secondary
-                                    : value.color.modaltext}
-                                    style={{ marginLeft: 10 }} />
-
-
+                                <Icon
+                                    name="history"
+                                    size={20}
+                                    color={selectedItem === 'history' ? value.color.secondary : value.color.modaltext}
+                                    style={{ marginLeft: 10 }}
+                                />
                                 <AppText
                                     variant="smallText"
                                     style={{
-                                        color: selectedItem === 'history'
-                                            ? value.color.secondary
-                                            : value.color.modaltext,
+                                        color: selectedItem === 'history' ? value.color.secondary : value.color.modaltext,
                                         marginLeft: 10,
                                     }}
                                 >
                                     History
                                 </AppText>
-
-
                             </TouchableOpacity>
                         </View>
 
@@ -81,15 +76,16 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
                                 NavigationManager.navigationRef.navigate(AppRoute.FAVORITESCREEB);
                             }}
                         >
-                            <Icon name="heart-outline" size={20} color={selectedItem === 'favorite'
-                                ? value.color.secondary
-                                : value.color.modaltext}
-                                style={{ marginLeft: 10 }} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.FAVORITESCREEB)} />
-                            <AppText variant='smallText'
+                            <Icon
+                                name="heart-outline"
+                                size={20}
+                                color={selectedItem === 'favorite' ? value.color.secondary : value.color.modaltext}
+                                style={{ marginLeft: 10 }}
+                            />
+                            <AppText
+                                variant="smallText"
                                 style={{
-                                    color: selectedItem === 'favorite'
-                                        ? value.color.secondary
-                                        : value.color.modaltext,
+                                    color: selectedItem === 'favorite' ? value.color.secondary : value.color.modaltext,
                                     marginLeft: 10,
                                 }}
                             >
@@ -111,10 +107,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        top: -90,
+        top: -110,
         left: 0,
         padding: 20,
-
+        backgroundColor: 'rgba(0, 0, 0, 0)',
     },
     modalContent: {
         width: 140,

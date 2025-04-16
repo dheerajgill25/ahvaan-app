@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useTheme } from "../Hooks/useTheme";
 import { AppFontFamily } from "../Theme/Utils";
+import AppText from "./AppText";
 
 function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
     const { style, value } = useTheme();
@@ -18,26 +19,26 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
     return StyleSheet.create({
         label: {
             fontSize: value.fontSize.small,
-            fontFamily: AppFontFamily.POPPINS_REGULAR,
+            fontFamily: AppFontFamily.POPPINS_BOLD,
             color: value.color.black,
             marginBottom: 4,
+            marginLeft: 5,
         },
         containerInput: {
             ...style.gutter.paddingRight.small,
             ...(fillParent ? style.layout.fill : {}),
-            borderColor: value.color.borderColor,
-            borderWidth: 1,
+
             paddingVertical: 10,
             paddingHorizontal: 16,
             ...(isCountryCode ? style.gutter.paddingLeft.inputHeight : {}),
         },
         placeholder: {
             position: "absolute",
-            left: 17,
-            top: 13,
+            left: 16,
+            top: 10,
             fontSize: value.fontSize.small,
             color: value.color.placeHolderColor,
-            fontFamily: AppFontFamily.POPPINS_REGULAR,
+            fontFamily: AppFontFamily.POPPINS_MEDIUM,
             zIndex: 1,
         },
         inputBase: {
@@ -50,7 +51,7 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
             color: "#000",
         },
         errorText: {
-            fontSize: value.fontSize.small,
+            fontSize: value.fontSize.footprint,
             fontFamily: AppFontFamily.POPPINS_REGULAR,
             color: value.color.danger,
             marginTop: 5,
@@ -60,6 +61,7 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
 
 interface AppTextInputProps extends TextInputProps {
     label?: string;
+    inputRef?: ((ref: TextInput) => void) | React.RefObject<TextInput>;
     labelStyle?: TextStyle;
     errorText?: string;
     fillParent?: boolean;
@@ -77,6 +79,7 @@ interface AppTextInputProps extends TextInputProps {
         borderBottomLeftRadius?: number;
         borderBottomRightRadius?: number;
     };
+    hideBorderSides?: ("top" | "bottom" | "left" | "right")[];
 }
 
 export const AppTextInput = ({
@@ -93,6 +96,7 @@ export const AppTextInput = ({
     backgroundColor,
     borderRadius = {},
     editable = true,
+    hideBorderSides = [],
     ...props
 }: AppTextInputProps) => {
     const themeStyle = useAppTextInputStyle(fillParent, isCountryCode);
@@ -100,10 +104,14 @@ export const AppTextInput = ({
     const [text, setText] = useState(props.value?.toString() || "");
     const { value } = useTheme();
     const inputRef = useRef<TextInput>(null);
+
     const dynamicInputStyle: ViewStyle = {
-        backgroundColor: editable ? backgroundColor ?? "#fff" : "#f7f7f7",
-        borderColor: value.color.borderColor,
-        borderWidth: 1,
+        backgroundColor: editable ? backgroundColor ?? "#fff" : "#fff",
+        borderTopWidth: hideBorderSides.includes("top") ? 0 : 1,
+        borderBottomWidth: hideBorderSides.includes("bottom") ? 0 : 1,
+        borderLeftWidth: hideBorderSides.includes("left") ? 0 : 1,
+        borderRightWidth: hideBorderSides.includes("right") ? 0 : 1,
+        borderColor: "rgba(217, 217, 217, 0.68)",
         borderRadius: borderRadius?.borderRadius,
         borderTopLeftRadius:
             borderRadius?.borderTopLeftRadius ?? borderRadius?.borderRadius ?? 8,
@@ -129,12 +137,11 @@ export const AppTextInput = ({
                 </Text>
             )}
             <TouchableOpacity activeOpacity={1} onPress={() => inputRef.current?.focus()}>
-                <View >
+                <View>
                     {!text && Placeholder && (
                         <Text
                             style={[
                                 themeStyle.placeholder,
-                                // { pointerEvents: "none" },
                                 placeholderColor && { color: placeholderColor },
                             ]}
                         >
@@ -158,9 +165,9 @@ export const AppTextInput = ({
                 </View>
             </TouchableOpacity>
             {errorText && (
-                <Text style={[themeStyle.errorText, errorStyle]}>
+                <AppText variant="subheading" style={[themeStyle.errorText, errorStyle]}>
                     {errorText}
-                </Text>
+                </AppText>
             )}
         </View>
     );

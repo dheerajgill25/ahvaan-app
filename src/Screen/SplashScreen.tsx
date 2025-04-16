@@ -19,6 +19,7 @@ import { AppFontFamily } from '../Theme/Utils';
 import { useTheme } from '../Hooks/useTheme';
 import NavigationManager from '../Navigator/Component/NavigationManager';
 import { AppRoute } from '../Navigator/Component/AppRoute';
+import AppRow from '../Components/AppRow';
 
 
 const SplashScreen = () => {
@@ -38,6 +39,7 @@ const SplashScreen = () => {
                         style={styles.backgroundImage1}
                         source={THEME_DEFAULT_IMAGE.AppSplashScreenImages.splashImage1}
                     />
+
                     <Image
                         style={styles.backgroundImage2}
                         source={THEME_DEFAULT_IMAGE.AppSplashScreenImages.splashImage2}
@@ -67,8 +69,8 @@ const SplashScreen = () => {
                     <AppText variant='subheading' style={{ textAlign: 'center', marginHorizontal: 30, marginBottom: 10 }}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                     </AppText>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: "20px", alignItems: 'center', marginVertical: 30 }}>
 
+                    <AppRow alignItems='center' justifyContent='center'>
                         <AppButton
                             title={"Let’s Get In"}
                             variant='primary'
@@ -77,8 +79,10 @@ const SplashScreen = () => {
                             icon={<Icon name="chevron-right" size={20} color={value.color.secondary} />}
                             onPress={() => NavigationManager.navigationRef.navigate(AppRoute.SIGNINCONTAINER)} />
 
+                    </AppRow>
 
-                    </View>
+
+
                     <AppText style={styles.footerText}>
                         By click on “Let’s Get In”, you agree to our{' '}
                         <Text style={styles.linkText}>Privacy Policy</Text> and{' '}
@@ -133,14 +137,16 @@ const styles = StyleSheet.create({
     footerText: {
         fontSize: 10,
         color: "white",
-
-        paddingHorizontal: 0,
+        paddingTop: 50,
+        paddingHorizontal: 5,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
     },
     linkText: {
         color: '#ffffff',
+        textDecorationLine: 'underline',
         fontSize: 10,
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
+
     },
 
     backgroundImagesContainer: {

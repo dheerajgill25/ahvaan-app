@@ -1,28 +1,25 @@
 import React from 'react';
 import {
     TouchableOpacity,
-    Text,
-    ActivityIndicator,
     StyleSheet,
     ViewStyle,
     TextStyle,
     TouchableOpacityProps,
     View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import AppText from './AppText';
 import { useTheme } from '../Hooks/useTheme';
 import { AppFontFamily } from '../Theme/Utils';
+import AppRow from './AppRow';
 
-
-
-type ButtonVariant = 'white' | 'secondary' | 'outline' | 'primary';
+type ButtonVariant = 'white' | 'secondary' | 'outline' | 'primary' | 'gradient';
 
 interface AppButtonProps extends TouchableOpacityProps {
     title: string;
     variant?: ButtonVariant;
     textColor?: string;
     fontSize?: number;
-    padding?: string;
     borderRadius?: number;
     onPress?: () => void;
     width?: ViewStyle['width'];
@@ -35,53 +32,71 @@ const AppButton: React.FC<AppButtonProps> = ({
     variant = 'primary',
     textColor,
     fontSize = 14,
-
     borderRadius = 5,
     onPress,
     width = '100%',
     loading = false,
+    icon,
     ...props
 }) => {
-
     const theme = useTheme();
     const { value: { color } } = theme;
+
     const padding = '4px 13px 4px 13px';
     const paddingValues = padding.replace(/px/g, '').split(' ').map(Number);
 
     const containerStyles: ViewStyle = {
         ...styles.base,
-        ...getVariantStyles(variant, props.disabled),
+        ...getVariantStyles(variant, props.disabled, color),
         borderRadius,
-        width: width as ViewStyle['width'],
+        width: "100%",
         height: 36,
         paddingVertical: paddingValues[0] === paddingValues[2] ? paddingValues[0] : undefined,
         paddingHorizontal: paddingValues[1] === paddingValues[3] ? paddingValues[1] : undefined,
     };
 
     const textStyles: TextStyle = {
-        color: getTextColor(variant, textColor),
+        color: getTextColor(variant, textColor, color),
         fontSize,
+
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
     };
 
     return (
         <TouchableOpacity
-            style={containerStyles}
             onPress={onPress}
             activeOpacity={0.8}
             disabled={props.disabled}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={{ borderRadius, width }}
             {...props}
         >
-            {/* {shouldShowLoading && title !== 'Cancel' && title !== 'Back' ? (
-        <ActivityIndicator color={variant === 'outline' ? '#F7901E' : '#FFFFFF'} />
-      ) : ( */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            {variant === 'gradient' ? (
+                <LinearGradient
+                    colors={['#DD2529', '#880608']}
+                    start={{ x: -0.3, y: 0 }}
+                    end={{ x: 1.05, y: 0 }}
+                    style={[containerStyles, { borderRadius }]}
+                >
+                    <View style={styles.content}>
+                        <AppRow gap='10'>
+                            <AppText style={textStyles} variant='heading'>{title}</AppText>
+                            {icon && <View>{icon}</View>}
+                        </AppRow>
 
-                <AppText style={textStyles} variant='heading'>{title}</AppText>
-                {props.icon && <View>{props.icon}</View>}
-            </View>
-            {/* )} */}
+                    </View>
+                </LinearGradient>
+            ) : (
+                <View style={containerStyles}>
+                    <View style={styles.content}>
+                        <AppRow gap='10'>
+                            <AppText style={textStyles} variant='heading'>{title}</AppText>
+                            {icon && <View>{icon}</View>}
+                        </AppRow>
+
+                    </View>
+                </View>
+            )}
         </TouchableOpacity>
     );
 };
@@ -93,12 +108,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    content: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
 });
-const theme = useTheme();
-const { value: { color } } = theme;
+
 const getVariantStyles = (
     variant: ButtonVariant,
-    disabled?: boolean
+    disabled: boolean | undefined,
+    color: any
 ): ViewStyle => {
     if (disabled) {
         return {
@@ -117,6 +137,10 @@ const getVariantStyles = (
                 borderWidth: 2,
                 borderColor: color.bordercolor,
             };
+        case 'gradient':
+            return {
+                backgroundColor: 'transparent',
+            };
         case 'primary':
         default:
             return {
@@ -127,8 +151,10 @@ const getVariantStyles = (
 
 const getTextColor = (
     variant: ButtonVariant,
-    textColor?: string
+    textColor: string | undefined,
+    color: any
 ): string => {
     if (variant === 'outline') return color.bordercolor;
+    if (variant === 'gradient') return textColor || '#FFFFFF';
     return textColor || color.secondary;
 };

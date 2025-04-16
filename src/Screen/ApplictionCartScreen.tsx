@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import AppText from '../Components/AppText';
 import { AppFontFamily } from '../Theme/Utils';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,9 +15,10 @@ type Props = {
     onPress?: () => void
     date?: string
 };
-
+const { width, height } = Dimensions.get('window');
 const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date }: Props) => {
     const { value } = useTheme()
+
     return (
         <>
             <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
@@ -49,12 +50,12 @@ const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date
 };
 
 const styles = StyleSheet.create({
+
     card: {
-        flexDirection: 'row',
+
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 10,
-        margin: 10,
         alignItems: 'flex-start',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -64,14 +65,20 @@ const styles = StyleSheet.create({
 
         width: "100%"
     },
-    image: {
-        width: 36,
-        height: 69,
+    gradientBackground: {
+        width: width * 0.18,
+        height: height * 0.13,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 5,
-        // marginRight: 10,
+    },
+    image: {
+        width: width * 0.10,
+        height: height * 0.10,
+        borderRadius: 5,
         justifyContent: 'center',
         alignContent: 'center',
-        zIndex: 1
+        zIndex: 1,
     },
     content: {
         flex: 1,
@@ -85,13 +92,7 @@ const styles = StyleSheet.create({
     description: {
         color: '#7D7D7D',
     },
-    gradientBackground: {
-        width: 65,
-        height: 91,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5
-    },
+
 });
 
 export default ApplicationCard;

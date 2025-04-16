@@ -27,6 +27,13 @@ import Update from "../../Assets/Svgs/material-symbols-light_update.svg"
 import LogOut from "../../Assets/Svgs/mynaui_logout.svg"
 import UserImage from "../../Assets/Svgs/Ellipse 215.svg"
 import Edit from "../../Assets/Svgs/iconamoon_edit-bold.svg"
+import backimage from "../../Assets/Svgs/dewang-gupta-ESEnXckWlLY-unsplash 1.svg"
+import Ellipse from "../../Assets/Svgs/Ellipse1.svg"
+import VectorBack from "../../Assets/Svgs/VectorBack.svg"
+import VectorBpttom from "../../Assets/Svgs/EllipseBottom.svg"
+import camera from "../../Assets/Svgs/mdi_camera.svg"
+import Manu from "../../Assets/Svgs/GroupMenu.svg"
+
 
 export const THEME_DEFAULT_IMAGE = {
 
@@ -36,13 +43,17 @@ export const THEME_DEFAULT_IMAGE = {
         inviteImage3: require('./../../Assets/Fonts/Images/GroupImage3.png'),
     },
     BackGroundImageScreen: {
-        backimage: require('./../../Assets/Fonts/Images/BackgroundImage.png'),
-        GroupCard
+        // backimage: require('./../../Assets/Fonts/Images/BackgroundImage.png'),
+        GroupCard,
+        backimage
     },
     AppSplashScreenImages: {
         splashImage1: require('./../../Assets/Fonts/Images/EllipseRight.png'),
         splashImage2: require('./../../Assets/Fonts/Images/EllipseRound.png'),
         splashImage3: require('./../../Assets/Fonts/Images/VectorTop.png'),
+        Ellipse,
+        VectorBack,
+        VectorBpttom
     },
     GurupImage: {
         groupImage1: require('./../../Assets/Fonts/Images/Group.png'),
@@ -70,7 +81,8 @@ export const THEME_DEFAULT_IMAGE = {
         Frame,
         Obeject,
         HeaderIocn,
-        Heart
+        Heart,
+        Manu
 
     }
     ,
@@ -81,6 +93,7 @@ export const THEME_DEFAULT_IMAGE = {
 
     },
     MyProfile: {
+        camera,
         Vector2,
         Vector3,
         Vector4,

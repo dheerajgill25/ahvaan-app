@@ -21,11 +21,11 @@ import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 
 const countryCodes = [
-    { label: 'India (+91)', value: '+91' },
-    { label: 'USA (+1)', value: '+1' },
-    { label: 'UK (+44)', value: '+44' },
-    { label: 'Australia (+61)', value: '+61' },
-    { label: 'Canada (+1)', value: '+1' },
+    { label: '(+91)', value: '+91' },
+    { label: '(+1)', value: '+1' },
+    { label: '(+44)', value: '+44' },
+    { label: '(+61)', value: '+61' },
+    { label: '(+1)', value: '+1' },
 ];
 
 const screenHeight = Dimensions.get('window').height;
@@ -102,123 +102,126 @@ const LoginVerify = () => {
                         <AppText variant="LoginText" style={{ color: value.color.white }}>
                             Sign In
                         </AppText>
-                        <View style={{ marginBottom: -15 }}>
-                            <AppText
-                                variant="smallText"
-                                style={{
-                                    color: value.color.white,
-                                    fontSize: 13,
-                                    fontFamily: AppFontFamily.POPPINS_REGULAR,
-                                }}
-                            >
-                                Enter Your WhatsApp Number
-                            </AppText>
-                        </View>
-
-                        <AppRow alignItems="center">
-                            <View style={{ marginTop: 30, top: -10, left: 0, width: 80 }}>
-                                <AppSelect
-                                    options={countryCodes}
-                                    onSelect={(value: string) => setSelectedCountryCode(value)}
-                                    labelField="label"
-                                    valueField="value"
-                                    value={selectedCountryCode}
-                                    customBorderRadius={{
-                                        borderTopLeftRadius: 30,
-                                        borderBottomLeftRadius: 30,
-                                        borderTopRightRadius: 0,
-                                        borderBottomRightRadius: 0,
-                                    }}
-                                    backgroundColor={value.color.white}
-                                />
-                            </View>
-
-                            <View
-                                style={{
-                                    flex: 1,
-                                    borderLeftWidth: 2,
-                                    borderLeftColor: '#E7E7E7',
-                                }}
-                            >
-                                <AppTextInput
-                                    Placeholder="Enter Your Number"
-                                    keyboardType="phone-pad"
-                                    label=""
-                                    backgroundColor={value.color.white}
-                                    borderRadius={{
-                                        borderTopLeftRadius: 0,
-                                        borderBottomLeftRadius: 30,
-                                        borderTopRightRadius: 0,
-                                        borderBottomRightRadius: 30,
-                                    }}
-                                    value={phoneNumber}
-                                    onChangeText={(text) => {
-                                        setPhoneNumber(text);
-                                        validatePhoneNumber(text);
-                                    }}
-                                    maxLength={10}
-                                />
-                            </View>
-                        </AppRow>
-
-                        {phoneError ? (
-                            <AppText
-                                variant="smallText"
-                                style={{ color: value.color.white, marginTop: -10 }}
-                            >
-                                {phoneError}
-                            </AppText>
-                        ) : null}
-
-                        <View style={{ width: '100%', marginBottom: 10 }}>
-                            <AppTextInput
-                                label="Enter Your Password"
-                                Placeholder="Enter Your Password"
-                                secureTextEntry
-                                backgroundColor={value.color.white}
-                                borderRadius={{ borderRadius: 30 }}
-                                labelColor={value.color.white}
-                                value={pin}
-                                onChangeText={(text) => {
-                                    setPin(text);
-                                    validatePin(text);
-                                }}
-                            />
-                        </View>
-
-                        {pinError ? (
-                            <AppText
-                                variant="smallText"
-                                style={{ color: value.color.white, marginTop: -10 }}
-                            >
-                                {pinError}
-                            </AppText>
-                        ) : null}
-
-                        <AppRow alignItems="flex-end" justifyContent="flex-end">
-                            <TouchableOpacity>
+                        <View style={{ paddingTop: 30 }}>
+                            <View style={{ marginBottom: -15, paddingLeft: 15 }}>
                                 <AppText
-                                    variant="smallText"
+                                    variant="LableText"
                                     style={{
-                                        textDecorationLine: 'underline',
-                                        marginTop: 5,
                                         color: value.color.white,
+
+
                                     }}
                                 >
-                                    Forgot PIN?
+                                    Enter Your WhatsApp Number
                                 </AppText>
-                            </TouchableOpacity>
-                        </AppRow>
+                            </View>
 
-                        <View style={styles.centerButton}>
-                            <AppButton
-                                title="Login"
-                                variant="primary"
-                                width="50%"
-                                borderRadius={50}
-                                onPress={handleLogin}
-                            />
+                            <AppRow alignItems="center">
+                                <View style={{ marginTop: 30, top: -10, left: 0, width: 80 }}>
+                                    <AppSelect
+                                        options={countryCodes}
+                                        onSelect={(value: string) => setSelectedCountryCode(value)}
+                                        labelField="label"
+                                        valueField="value"
+                                        value={selectedCountryCode}
+                                        customBorderRadius={{
+                                            borderTopLeftRadius: 30,
+                                            borderBottomLeftRadius: 30,
+                                            borderTopRightRadius: 0,
+                                            borderBottomRightRadius: 0,
+                                        }}
+                                        backgroundColor={value.color.white}
+                                    />
+                                </View>
+
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        borderLeftWidth: 2,
+                                        borderLeftColor: '#E7E7E7',
+                                    }}
+                                >
+                                    <AppTextInput
+                                        Placeholder="Enter Your Number"
+                                        keyboardType="phone-pad"
+                                        label=""
+                                        backgroundColor={value.color.white}
+                                        borderRadius={{
+                                            borderTopLeftRadius: 0,
+                                            borderBottomLeftRadius: 30,
+                                            borderTopRightRadius: 0,
+                                            borderBottomRightRadius: 30,
+                                        }}
+                                        value={phoneNumber}
+                                        onChangeText={(text) => {
+                                            setPhoneNumber(text);
+                                            validatePhoneNumber(text);
+                                        }}
+                                        maxLength={10}
+                                    />
+                                </View>
+                            </AppRow>
+
+                            {phoneError ? (
+                                <AppText
+                                    variant="smallText"
+                                    style={{ color: value.color.white, marginTop: -10 }}
+                                >
+                                    {phoneError}
+                                </AppText>
+                            ) : null}
+
+                            <View style={{ width: '100%', marginBottom: 10 }}>
+                                <AppTextInput
+                                    label="Enter Your Password"
+                                    Placeholder="Enter Your Password"
+                                    secureTextEntry
+                                    backgroundColor={value.color.white}
+                                    borderRadius={{ borderRadius: 30 }}
+                                    labelColor={value.color.white}
+                                    value={pin}
+                                    onChangeText={(text) => {
+                                        setPin(text);
+                                        validatePin(text);
+                                    }}
+                                />
+                            </View>
+
+                            {pinError ? (
+                                <AppText
+                                    variant="smallText"
+                                    style={{ color: value.color.white, marginTop: -10 }}
+                                >
+                                    {pinError}
+                                </AppText>
+                            ) : null}
+
+                            <AppRow alignItems="flex-end" justifyContent="flex-end">
+                                <TouchableOpacity>
+                                    <AppText
+                                        variant="subheading"
+                                        style={{
+                                            textDecorationLine: 'underline',
+                                            marginTop: 5,
+                                            color: value.color.white,
+                                        }}
+                                    >
+                                        Forgot PIN?
+                                    </AppText>
+                                </TouchableOpacity>
+                            </AppRow>
+
+                            <View style={styles.centerButton}>
+                                <AppButton
+                                    title="Login"
+                                    variant="primary"
+                                    width="50%"
+                                    borderRadius={50}
+                                    onPress={handleLogin}
+                                />
+                            </View>
                         </View>
+
                     </View>
                 </View>
             </ScrollView>

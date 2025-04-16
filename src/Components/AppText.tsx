@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextProps, StyleSheet, TextStyle } from 'react-native';
 import { useTheme } from '../Hooks/useTheme';
 import { AppFontFamily } from "../Theme/Utils";
-type TextVariant = 'title' | 'heading' | 'subheading' | 'description' | 'LoginText' | "smallText" | "HeaderText" | "cardTitle" | "profiletext";
+type TextVariant = "LableText" | 'title' | 'heading' | 'subheading' | 'description' | 'LoginText' | "smallText" | "HeaderText" | "cardTitle" | "profiletext";
 
 interface AppTextProps extends TextProps {
     variant?: TextVariant;
@@ -24,13 +24,13 @@ const variantStyles: Record<TextVariant, TextStyle> = {
 
     },
     heading: {
-        fontSize: value.fontSize.medium + 1,
+        fontSize: value.fontSize.medium - 1,
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
         color: value.color.white,
 
     },
     LoginText: {
-        fontSize: value.fontSize.medium + 1,
+        fontSize: value.fontSize.medium - 1,
         fontFamily: AppFontFamily.POPPINS_MEDIUM,
         color: value.color.black,
         // lineHeight: value.metricSize.sm
@@ -47,6 +47,13 @@ const variantStyles: Record<TextVariant, TextStyle> = {
         fontSize: value.fontSize.small,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
         color: value.color.samlltextColor,
+        // lineHeight: value.metricSize.sm
+
+    },
+    LableText: {
+        fontSize: value.fontSize.mini + 4,
+        fontFamily: AppFontFamily.POPPINS_REGULAR,
+        color: value.color.black,
         // lineHeight: value.metricSize.sm
 
     },

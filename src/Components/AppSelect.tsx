@@ -22,6 +22,7 @@ interface ExampleSelectProps {
         borderBottomLeftRadius?: number;
         borderBottomRightRadius?: number;
     };
+    hideBorderSides?: ("top" | "bottom" | "left" | "right")[]; // 👈 NEW PROP
 }
 
 const AppSelect: React.FC<ExampleSelectProps> = ({
@@ -34,8 +35,9 @@ const AppSelect: React.FC<ExampleSelectProps> = ({
     isFlex,
     labelField,
     valueField,
-    backgroundColor = '#F5EFEF',
+    backgroundColor = '#fff',
     customBorderRadius = {},
+    hideBorderSides = [],
     ...props
 }) => {
     const dropdownRef = useRef<IDropdownRef>(null);
@@ -44,6 +46,14 @@ const AppSelect: React.FC<ExampleSelectProps> = ({
         if (!value) return -1;
         return findIndex(options, (item: any) => item[valueField] === value);
     }, [options, value]);
+
+    const borderStyle = {
+        borderTopWidth: hideBorderSides.includes('top') ? 0 : 1,
+        borderBottomWidth: hideBorderSides.includes('bottom') ? 0 : 1,
+        borderLeftWidth: hideBorderSides.includes('left') ? 0 : 1,
+        borderRightWidth: hideBorderSides.includes('right') ? 0 : 1,
+        borderColor: value ? '#f7901e' : '#ccc',
+    };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -54,7 +64,7 @@ const AppSelect: React.FC<ExampleSelectProps> = ({
                         {required && <Text style={styles.required}>*</Text>}
                     </View>
                 )}
-                {options?.length > 0 ? (
+                {options?.length > 0 && (
                     <Dropdown
                         ref={dropdownRef}
                         data={options}
@@ -73,17 +83,16 @@ const AppSelect: React.FC<ExampleSelectProps> = ({
                         }}
                         style={[
                             styles.dropdown,
+                            borderStyle,
                             {
-                                backgroundColor: backgroundColor,
-                                borderColor: value ? '#f7901e' : '#ccc',
-
+                                backgroundColor,
                             },
                             customBorderRadius,
                         ]}
                         selectedTextStyle={styles.selectedText}
                         itemTextStyle={styles.itemText}
                     />
-                ) : null}
+                )}
                 {error && <Text style={styles.error}>{error}</Text>}
             </View>
         </TouchableWithoutFeedback>
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     labelText: {
-        fontSize: 14,
+        fontSize: 10,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
         color: '#000',
     },
@@ -114,13 +123,12 @@ const styles = StyleSheet.create({
     dropdown: {
         height: 48,
         paddingHorizontal: 10,
-        backgroundColor: '#F5EFEF',
         borderRadius: 30,
     },
     selectedText: {
         color: '#000',
-        fontSize: 14,
-        fontFamily: AppFontFamily.POPPINS_REGULAR,
+        fontSize: 10,
+        fontFamily: AppFontFamily.POPPINS_BOLD,
     },
     itemText: {
         color: '#000',

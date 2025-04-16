@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { useTheme } from '../Hooks/useTheme';
 import AppText from './AppText';
+import AppRow from './AppRow';
 
 const { width } = Dimensions.get('window');
 
@@ -22,46 +23,40 @@ const AppHeader: React.FC<Props> = React.memo(({
     invitationCount = 0,
 }) => {
     const { value } = useTheme();
-    console.log('onChange prop:', activeTab);
+
     return (
         <View style={[styles.container, { backgroundColor: value.color.secondary || '#FF0000' }]}>
-            <View style={styles.tabContainer}>
-
-                <TouchableOpacity
-                    activeOpacity={0.6}
-                    onPress={() => handleTabChange && handleTabChange('Myevents')}
-
-                    style={styles.tab}
-                >
-                    <AppText
-                        variant="HeaderText"
-                        style={[
-                            activeTab === 'Myevents' ? styles.activeText : styles.inactiveText,
-                        ]}
+            <View style={styles.tabWrapper}>
+                <AppRow alignItems='center' justifyContent='space-between' style={styles.tabRow}>
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={() => handleTabChange && handleTabChange('Myevents')}
+                        style={styles.tab}
                     >
-                        My Events
-                    </AppText>
-                    <View style={styles.baseLine} />
-                    {activeTab === 'Myevents' && <View style={styles.activeLine} />}
-                </TouchableOpacity>
+                        <AppText
+                            variant="profiletext"
+                            style={[activeTab === 'Myevents' ? styles.activeText : styles.inactiveText]}
+                        >
+                            My Events
+                        </AppText>
+                        {activeTab === 'Myevents' && <View style={styles.activeLine} />}
+                    </TouchableOpacity>
 
-
-                <TouchableOpacity
-                    activeOpacity={0.6}
-                    onPress={() => handleTabChange && handleTabChange('Myinvitations')}
-                    style={styles.tab}
-                >
-                    <AppText
-                        variant="HeaderText"
-                        style={[
-                            activeTab === 'Myinvitations' ? styles.activeText : styles.inactiveText,
-                        ]}
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={() => handleTabChange && handleTabChange('Myinvitations')}
+                        style={styles.tab}
                     >
-                        Invitations({invitationCount})
-                    </AppText>
-                    <View style={styles.baseLine} />
-                    {activeTab === 'Myinvitations' && <View style={styles.activeLine} />}
-                </TouchableOpacity>
+                        <AppText
+                            variant="profiletext"
+                            style={[activeTab === 'Myinvitations' ? styles.activeText : styles.inactiveText]}
+                        >
+                            Invitations({invitationCount})
+                        </AppText>
+                        {activeTab === 'Myinvitations' && <View style={styles.activeLine} />}
+                    </TouchableOpacity>
+                </AppRow>
+                <View style={styles.baseLine} />
             </View>
         </View>
     );
@@ -73,43 +68,41 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 30,
         paddingBottom: 10,
-        marginBottom: 0
-
+        alignItems: 'center',
     },
-    tabContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-
+    tabWrapper: {
+        position: 'relative',
+        width: width * 0.8,
+    },
+    tabRow: {
+        justifyContent: 'space-between',
     },
     tab: {
         alignItems: 'center',
-        paddingBottom: 6,
-        width: width / 2,
-        position: 'relative',
-        paddingHorizontal: 0,
-        marginHorizontal: 0,
+        paddingBottom: 8,
+        flex: 1,
     },
     activeText: {
         color: '#fff',
     },
     inactiveText: {
         color: '#DCDCDC',
-
     },
     baseLine: {
         position: 'absolute',
         bottom: 0,
+        left: 0,
+        right: 0,
         height: 4,
-        width: '90%',
         backgroundColor: '#DCDCDC',
         borderRadius: 1,
+        zIndex: -1
     },
     activeLine: {
         position: 'absolute',
         bottom: 0,
-
         height: 4,
-        width: '90%',
+        width: '100%',
         backgroundColor: '#FFFFFF',
         borderRadius: 2,
     },
