@@ -63,11 +63,11 @@ const AppRouter = () => {
                     component={SignUp}
                     options={{ headerShown: false }}
                 />
-                <Stack.Screen
+                {/* <Stack.Screen
                     name={AppRoute.VERIFYOTP}
                     component={VerifyYourOTP}
-                    options={{ headerShown: false }}
-                />
+                    options={{ headerShown: false, presentation: 'modal' }}
+                /> */}
                 <Stack.Screen
                     name={AppRoute.LOGINSCREEN}
                     component={loginScreen}

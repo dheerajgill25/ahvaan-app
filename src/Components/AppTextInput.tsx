@@ -19,7 +19,7 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
     return StyleSheet.create({
         label: {
             fontSize: value.fontSize.small,
-            fontFamily: AppFontFamily.POPPINS_BOLD,
+            fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
             color: value.color.black,
             marginBottom: 4,
             marginLeft: 5,
@@ -37,7 +37,6 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
             left: 16,
             top: 10,
             fontSize: value.fontSize.small,
-            color: value.color.placeHolderColor,
             fontFamily: AppFontFamily.POPPINS_MEDIUM,
             zIndex: 1,
         },
@@ -111,7 +110,7 @@ export const AppTextInput = ({
         borderBottomWidth: hideBorderSides.includes("bottom") ? 0 : 1,
         borderLeftWidth: hideBorderSides.includes("left") ? 0 : 1,
         borderRightWidth: hideBorderSides.includes("right") ? 0 : 1,
-        borderColor: "rgba(217, 217, 217, 0.68)",
+        borderColor: errorText ? value.color.danger : "rgba(217, 217, 217, 0.62)",
         borderRadius: borderRadius?.borderRadius,
         borderTopLeftRadius:
             borderRadius?.borderTopLeftRadius ?? borderRadius?.borderRadius ?? 8,
@@ -138,16 +137,20 @@ export const AppTextInput = ({
             )}
             <TouchableOpacity activeOpacity={1} onPress={() => inputRef.current?.focus()}>
                 <View>
-                    {!text && Placeholder && (
+                    {/* {!text && Placeholder && (
                         <Text
                             style={[
                                 themeStyle.placeholder,
-                                placeholderColor && { color: placeholderColor },
+                                {
+                                    color: errorText
+                                        ? value.color.danger
+                                        : placeholderColor || value.color.placeHolderColor,
+                                },
                             ]}
                         >
                             {Placeholder}
                         </Text>
-                    )}
+                    )} */}
                     <TextInput
                         {...props}
                         ref={inputRef}
@@ -160,7 +163,10 @@ export const AppTextInput = ({
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         style={[themeStyle.inputBase, dynamicInputStyle, style]}
-                        placeholder={Placeholder || placeholderColor}
+                        placeholder={Placeholder}
+                        placeholderTextColor={
+                            placeholderColor || value.color.placeHolderColor
+                        }
                     />
                 </View>
             </TouchableOpacity>

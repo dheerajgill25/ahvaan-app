@@ -64,7 +64,10 @@ export const THEME_DEFAULT_COLOR = {
     placeHolderColor: "#BABABA",
     samlltextColor: "#ACACAC",
     modaltext: "#7D7D7D",
-    Modalborder: "#ECECEC"
+    Modalborder: "#ECECEC",
+    ActiveColor: "#A00707",
+    grayaunderline: "#A4A4A4",
+    line: "rgba(217, 217, 217, 0.06)"
 };
 
 export type ThemeColor = typeof THEME_DEFAULT_COLOR;
@@ -107,6 +110,7 @@ export const THEME_DEFAULT_METRICSIZE = {
     large: normalize(34),
     largeEx: normalize(35),
     tableRowHeight: normalize(37),
+    RowHeight: normalize(40),
     iconSizeLargr: normalize(30),
     inputHeight: normalize(50),
     inputVerticalPadding: normalize(12),

@@ -6,6 +6,8 @@ import { CountryPicker } from 'react-native-country-codes-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AppRow from './AppRow';
 import AppText from './AppText';
+import { AppFontFamily } from '../Theme/Utils';
+import { useTheme } from '../Hooks/useTheme';
 
 type Props = {
     showPicker: boolean;
@@ -30,6 +32,7 @@ const CountrySelector: React.FC<Props> = ({
     selectedCountry,
     setSelectedCountry,
 }) => {
+    const { value } = useTheme()
     return (
         <>
             <TouchableOpacity
@@ -40,16 +43,17 @@ const CountrySelector: React.FC<Props> = ({
                     <AppText variant="subheading" style={styles.countryText}>
                         {selectedCountry.flag}
                     </AppText>
-                    <AppText variant="subheading" style={[styles.countryText, styles.dialCode]}>
+                    <AppText variant="subheading" style={{ color: "black", fontFamily: AppFontFamily.POPPINS_BOLD }}>
                         {selectedCountry.dial_code}
                     </AppText>
-                    <FontAwesome name="angle-down" size={18} color="black" />
+                    <FontAwesome name="angle-down" size={18} color="black" style={{ fontFamily: AppFontFamily.POPPINS_BOLD }} />
                     <View style={styles.separator} />
                 </AppRow>
             </TouchableOpacity>
 
             <CountryPicker
                 show={showPicker}
+
                 pickerButtonOnPress={(item) => {
                     setSelectedCountry({
                         name: typeof item.name === 'string' ? item.name : item.name?.common || '',
@@ -62,10 +66,11 @@ const CountrySelector: React.FC<Props> = ({
                 onBackdropPress={() => setShowPicker(false)}
                 style={{
                     modal: { height: 400 },
-                    textInput: { color: 'black' },
-                    countryName: { color: 'black' },
-                    dialCode: { color: 'black' },
-                    flag: { marginRight: 10 },
+                    textInput: { color: 'black', },
+                    countryName: { color: 'black', fontFamily: AppFontFamily.POPPINS_SEMI_BOLD, fontSize: value.fontSize.footprint },
+                    dialCode: { color: 'black', fontFamily: AppFontFamily.POPPINS_SEMI_BOLD, fontSize: value.fontSize.footprint },
+
+
                 }}
                 lang="en"
             />
@@ -80,20 +85,23 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        borderColor: '#D9D9D9',
+        borderColor: ' "rgba(217, 217, 217, 0.62)"',
         borderWidth: 1,
         marginRight: -1,
     },
     countryText: {
         color: 'black',
+        fontWeight: 700
     },
     dialCode: {
-        fontWeight: 'bold',
+        fontWeight: 800,
+
     },
     separator: {
         borderLeftColor: '#D9D9D9',
         borderLeftWidth: 1,
         height: 30,
+
     },
 });
 

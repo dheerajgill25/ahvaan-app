@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     View,
     ScrollView,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '../../../Hooks/useTheme';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 import { AppTextInput } from '../../../Components/AppTextInput';
 import AppText from '../../../Components/AppText';
 import AppButton from '../../../Components/AppButton';
@@ -20,12 +20,13 @@ import AppRow from '../../../Components/AppRow';
 import { CountryPicker } from 'react-native-country-codes-picker';
 import { AppFontFamily } from '../../../Theme/Utils';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CountrySelector from '../../../Components/CountrySelector';
 
 const { height } = Dimensions.get('window');
-
+const { value, style } = useTheme();
 const SignInContainer = () => {
-    const theme = useTheme();
-    const { value } = theme;
+
+    const { value } = useTheme();
 
     const [showPicker, setShowPicker] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState({
@@ -34,7 +35,8 @@ const SignInContainer = () => {
         code: 'IN',
         flag: '🇮🇳',
     });
-
+    const phoneInputRef = useRef(null);
+    const pinInputRef = useRef(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [pin, setPin] = useState('');
     const [phoneError, setPhoneError] = useState('');
@@ -70,13 +72,13 @@ const SignInContainer = () => {
         const isPinValid = validatePin(pin);
 
         if (isPhoneValid && isPinValid) {
-
             NavigationManager.navigationRef.navigate(AppRoute.SIGNINUP);
         }
     };
 
     return (
         <KeyboardAvoidingView
+
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
         >
@@ -84,105 +86,73 @@ const SignInContainer = () => {
                 contentContainerStyle={styles.container}
                 keyboardShouldPersistTaps="handled"
             >
-                <View style={styles.cards}>
-                    <TouchableOpacity
-                        style={styles.backButton}
-                        onPress={() => NavigationManager.navigationRef.goBack()}
-                    >
-                        <Icon name="chevron-left" size={24} color="white" style={styles.backIcon} />
-                    </TouchableOpacity>
-                    <AppText variant="LoginText" style={{ color: value.color.white, fontFamily: AppFontFamily.POPPINS_BOLD }}>Sign In</AppText>
-                    <AppText variant='LoginText' style={{ color: value.color.white, fontFamily: AppFontFamily.POPPINS_BOLD }}>Welcome Back !</AppText>
-
-                </View>
-
-
-
-                <View style={styles.card}>
-                    <View style={styles.inputContainer}>
-                        <AppText variant="smallText" style={styles.inputLabel}>
-                            Enter Your WhatsApp Number
-                        </AppText>
-
-                        <View style={styles.phoneInputContainer}>
-                            <TouchableOpacity
-                                onPress={() => setShowPicker(true)}
-                                style={styles.countryPickerButton}
-                            >
-                                <AppRow gap="8" alignItems="center">
-                                    <AppText variant="subheading" style={styles.countryText}>
-                                        {selectedCountry.flag}
-                                    </AppText>
-                                    <AppText
-                                        variant="subheading"
-                                        style={[styles.countryText, styles.dialCode]}
-                                    >
-                                        {selectedCountry.dial_code}
-                                    </AppText>
-                                    <FontAwesome name="angle-down" size={18} color="black" />
-                                    <View style={styles.separator} />
-                                </AppRow>
-                            </TouchableOpacity>
-
-                            <View style={styles.phoneNumberInput}>
-                                <AppTextInput
-                                    Placeholder="Enter Your Number"
-                                    keyboardType="phone-pad"
-                                    borderRadius={{
-                                        borderTopLeftRadius: 0,
-                                        borderBottomLeftRadius: 10,
-                                        borderTopRightRadius: 0,
-                                        borderBottomRightRadius: 10,
-                                    }}
-                                    value={phoneNumber}
-                                    onChangeText={(text) => {
-                                        setPhoneNumber(text);
-                                        validatePhoneNumber(text);
-                                    }}
-                                    maxLength={10}
-                                    hideBorderSides={['left']}
-                                />
-                            </View>
-                        </View>
-
-                        {phoneError ? (
-                            <AppText variant="subheading" style={styles.errorText}>
-                                {phoneError}
-                            </AppText>
-                        ) : null}
+                <View style={{ flexGrow: 1 }}>
+                    <View style={styles.cards}>
+                        <TouchableOpacity
+                            style={styles.backButton}
+                            onPress={() => NavigationManager.navigationRef.goBack()}
+                        >
+                            <Icon name="angle-left" size={24} color="white" style={styles.backIcon} />
+                        </TouchableOpacity>
+                        <AppText variant="LoginText" style={{ color: value.color.white, fontFamily: AppFontFamily.POPPINS_BOLD }}>Sign In</AppText>
+                        <AppText variant='LoginText' style={{ color: value.color.white, fontFamily: AppFontFamily.POPPINS_BOLD }}>Welcome Back !</AppText>
                     </View>
 
-                    <CountryPicker
-                        show={showPicker}
-                        pickerButtonOnPress={(item) => {
-                            setSelectedCountry({
-                                name: typeof item.name === 'string' ? item.name : item.name?.common || '',
-                                dial_code: item.dial_code,
-                                code: item.code,
-                                flag: item.flag,
-                            });
-                            setShowPicker(false);
-                        }}
-                        onBackdropPress={() => setShowPicker(false)}
-                        style={{
-                            modal: { height: 400 },
-                            textInput: { color: 'black' },
-                            countryName: { color: 'black' },
-                            dialCode: { color: 'black' },
-                            flag: { marginRight: 10 },
-                        }}
-                        lang="en"
-                    />
+                    <View style={styles.card}>
+                        <View style={styles.inputContainer}>
+                            <AppText variant="smallText" style={styles.inputLabel}>
+                                Enter Your Number
+                            </AppText>
 
-                    <View>
+                            <View style={styles.phoneInputContainer}>
+                                <View
+                                    style={[
+                                        styles.phoneInputWrapper,
+                                        phoneError ? styles.phoneInputWrapperError : null
+                                    ]}
+                                >
+                                    <CountrySelector
+                                        showPicker={showPicker}
+                                        setShowPicker={setShowPicker}
+                                        selectedCountry={selectedCountry}
+                                        setSelectedCountry={setSelectedCountry}
+                                    />
+                                    <View style={styles.phoneNumberInput}>
+                                        <AppTextInput
+                                            Placeholder="Enter Your Number"
+                                            keyboardType="phone-pad"
+                                            borderRadius={{
+                                                borderTopLeftRadius: 0,
+                                                borderBottomLeftRadius: value.metricSize.small,
+                                                borderTopRightRadius: 0,
+                                                borderBottomRightRadius: value.metricSize.small,
+                                            }}
+                                            value={phoneNumber}
+                                            onChangeText={(text) => {
+                                                setPhoneNumber(text);
+                                                validatePhoneNumber(text);
+                                            }}
+                                            maxLength={10}
+                                            hideBorderSides={['left']}
+                                            placeholderTextColor={value.color.danger}
+                                        />
+                                    </View>
+                                </View>
+                            </View>
+
+                            {phoneError ? (
+                                <AppText variant="subheading" style={styles.errorText}>
+                                    {phoneError}
+                                </AppText>
+                            ) : null}
+                        </View>
+
                         <AppTextInput
                             label="Enter Your PIN"
                             Placeholder="Enter Your PIN"
                             secureTextEntry
-                            borderRadius={{
-                                borderRadius: 10
-                            }}
-                            maxLength={4}
+                            borderRadius={{ borderRadius: value.metricSize.small }}
+                            maxLength={value.metricSize.tinySmall}
                             value={pin}
                             onChangeText={(text) => {
                                 setPin(text);
@@ -190,7 +160,7 @@ const SignInContainer = () => {
                             }}
                             keyboardType="numeric"
                             errorText={pinError}
-                            style={styles.pinInput}
+
                         />
 
                         <TouchableOpacity style={styles.forgotPin}>
@@ -198,24 +168,24 @@ const SignInContainer = () => {
                                 Forgot PIN?
                             </AppText>
                         </TouchableOpacity>
-                    </View>
 
-                    <AppButton
-                        title="Log In"
-                        variant="gradient"
-                        textColor={value.color.white}
-                        borderRadius={50}
-                        onPress={handleLogin}
-                    />
+                        <AppButton
+                            title="Log In"
+                            variant="gradient"
+                            textColor={value.color.white}
+                            borderRadius={value.metricSize.inputHeight}
+                            onPress={handleLogin}
+                        />
 
-                    <AppRow alignItems="center" justifyContent="center">
-                        <AppText variant="subheading" style={styles.signupText}>
-                            If you don't have an account?{' '}
-                            <AppText variant="subheading" style={styles.signupLink}>
-                                Sign Up
+                        <AppRow alignItems="center" justifyContent="center">
+                            <AppText variant="subheading" style={styles.signupText}>
+                                If you don't have an account?{' '}
+                                <AppText variant="subheading" style={styles.signupLink}>
+                                    Sign Up
+                                </AppText>
                             </AppText>
-                        </AppText>
-                    </AppRow>
+                        </AppRow>
+                    </View>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -224,94 +194,85 @@ const SignInContainer = () => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 0,
-        backgroundColor: "#fff"
+        backgroundColor: value.color.white,
     },
     cards: {
         height: height * 0.4,
-        backgroundColor: '#A00707',
+        backgroundColor: value.color.ActiveColor,
         justifyContent: 'flex-end',
-        paddingBottom: 50,
-        borderBottomRightRadius: 40,
-        borderBottomLeftRadius: 40,
-        zIndex: 1,
-        padding: 20,
+        ...style.gutter.paddingBottom.tableRowHeight,
+        borderBottomRightRadius: value.metricSize.tableRowHeight,
+        borderBottomLeftRadius: value.metricSize.tableRowHeight,
+        ...style.gutter.padding.medium
     },
     card: {
-        marginTop: 10,
-        padding: 20,
+        ...style.gutter.marginTop.medium,
+        ...style.gutter.padding.medium,
+
     },
     backButton: {
+
         position: 'absolute',
-        top: 10,
-        color: "#fff",
-        zIndex: 1
+        top: value.metricSize.small,
+        color: value.color.white,
+
     },
     backIcon: {
-        padding: 10,
+        ...style.gutter.padding.small,
+        ...style.gutter.marginLeft.mini,
     },
     inputContainer: {
-        marginTop: 20,
-        paddingBottom: 30
+
+        ...style.gutter.marginTop.medium,
+        ...style.gutter.paddingBottom.iconSizeLargr
     },
     inputLabel: {
-        marginBottom: 5,
-        paddingLeft: 5,
+        ...style.gutter.marginBottom.tiny,
+        ...style.gutter.paddingLeft.tiny,
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
-        color: "black"
+        color: value.color.black
     },
     phoneInputContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    countryPickerButton: {
-        backgroundColor: '#fff',
-        paddingHorizontal: 7,
-        paddingVertical: 8,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        borderColor: '#D9D9D9',
-        borderWidth: 1,
-        marginRight: -1,
-    },
-    countryText: {
-        color: 'black',
-    },
-    dialCode: {
-        fontFamily: AppFontFamily.POPPINS_BOLD,
-    },
-    separator: {
-        borderLeftColor: '#D9D9D9',
-        borderLeftWidth: 1,
-        height: 30,
+        ...style.layout.row,
+        ...style.layout.alignItemsCenter,
     },
     phoneNumberInput: {
         flex: 1,
     },
     errorText: {
-        color: '#FF0000',
-        marginTop: 5,
+        color: value.color.secondary,
+        ...style.gutter.marginTop.tiny,
     },
-    pinInput: {
-        marginTop: 0,
-    },
+
     forgotPin: {
-        marginTop: 10,
-        alignItems: 'flex-end',
-        marginBottom: 30,
+        ...style.gutter.marginTop.small,
+        ...style.layout.alignItemsEnd,
+        ...style.gutter.marginBottom.iconSizeLargr,
     },
     forgotPinText: {
         textDecorationLine: 'underline',
-        color: '#A4A4A4',
+        color: value.color.grayaunderline,
     },
     signupText: {
-        textAlign: 'center',
-        marginTop: 20,
-        color: 'black',
+
+        ...style.layout.textAlignCenter,
+        ...style.gutter.marginTop.medium,
+        color: value.color.black,
     },
     signupLink: {
         textDecorationLine: 'underline',
-        color: '#000000',
+        color: value.color.black,
+    },
+    phoneInputWrapper: {
+        ...style.layout.row,
+        ...style.layout.alignItemsCenter,
+        borderRadius: value.metricSize.small,
+        overflow: 'hidden',
+        borderWidth: value.metricSize.one,
+        borderColor: value.color.line,
+    },
+    phoneInputWrapperError: {
+        borderColor: value.color.secondary,
     },
 });
 

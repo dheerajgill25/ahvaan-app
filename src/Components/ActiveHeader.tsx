@@ -3,10 +3,12 @@ import {
     View,
     TouchableOpacity,
     StyleSheet,
-    Dimensions,
+    Text,
 } from 'react-native';
 import { useTheme } from '../Hooks/useTheme';
 import AppText from './AppText';
+import { AppFontFamily } from '../Theme/Utils';
+import AppRow from './AppRow';
 
 interface Props {
     activeTab?: 'events' | 'invitations';
@@ -22,7 +24,7 @@ const AppHeader: React.FC<Props> = React.memo(({
     eventCount = 1,
 }) => {
     const { value } = useTheme();
-    const activeColor = value.color.secondary || '#FF0000';
+    const activeColor = value.color.ActiveColor || '#ffffff';
 
     const styles = StyleSheet.create({
         container: {
@@ -44,19 +46,37 @@ const AppHeader: React.FC<Props> = React.memo(({
             borderRadius: 30,
         },
         activeTabButton: {
-            backgroundColor: '#FFFFFF',
+            backgroundColor: value.color.ActiveColor,
+            marginVertical: 3,
+            marginHorizontal: 3,
         },
         activeText: {
-            color: activeColor,
+            color: value.color.white,
+            fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
         },
         inactiveText: {
-            color: '#A0A0A0',
+            color: value.color.black,
+            fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
+        },
+        countStyle: {
+            fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
+            fontSize: 12,
+            marginTop: 1
+        },
+        countCircle: {
+            width: 20,
+            height: 20,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+
         },
     });
 
     return (
         <View style={styles.container}>
             <View style={styles.tabWrapper}>
+
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => handleTabChange?.('events')}
@@ -65,13 +85,41 @@ const AppHeader: React.FC<Props> = React.memo(({
                         activeTab === 'events' && styles.activeTabButton,
                     ]}
                 >
-                    <AppText
-                        variant='profiletext'
-                        style={activeTab === 'events' ? styles.activeText : styles.inactiveText}
-                    >
-                        Events ({eventCount})
-                    </AppText>
+                    <AppRow alignItems='center' gap='10'>
+                        <AppText
+                            variant="profiletext"
+                            style={activeTab === 'events' ? styles.activeText : styles.inactiveText}
+                        >
+                            Events
+                        </AppText>
+                        <View
+                            style={[
+                                styles.countCircle,
+                                {
+                                    backgroundColor:
+                                        activeTab === 'events'
+                                            ? value.color.white
+                                            : value.color.ActiveColor,
+                                },
+                            ]}
+                        >
+                            <Text
+                                style={[
+                                    styles.countStyle,
+                                    {
+                                        color:
+                                            activeTab === 'events'
+                                                ? value.color.ActiveColor
+                                                : 'white',
+                                    },
+                                ]}
+                            >
+                                {eventCount}
+                            </Text>
+                        </View>
+                    </AppRow>
                 </TouchableOpacity>
+
 
                 <TouchableOpacity
                     activeOpacity={0.8}
@@ -81,12 +129,39 @@ const AppHeader: React.FC<Props> = React.memo(({
                         activeTab === 'invitations' && styles.activeTabButton,
                     ]}
                 >
-                    <AppText
-                        variant='profiletext'
-                        style={activeTab === 'invitations' ? styles.activeText : styles.inactiveText}
-                    >
-                        Invitation ({invitationCount})
-                    </AppText>
+                    <AppRow alignItems='center' gap='10' >
+                        <AppText
+                            variant="profiletext"
+                            style={activeTab === 'invitations' ? styles.activeText : styles.inactiveText}
+                        >
+                            Invitation
+                        </AppText>
+                        <View
+                            style={[
+                                styles.countCircle,
+                                {
+                                    backgroundColor:
+                                        activeTab === 'invitations'
+                                            ? value.color.white
+                                            : value.color.ActiveColor,
+                                },
+                            ]}
+                        >
+                            <Text
+                                style={[
+                                    styles.countStyle,
+                                    {
+                                        color:
+                                            activeTab === 'invitations'
+                                                ? value.color.ActiveColor
+                                                : 'white',
+                                    },
+                                ]}
+                            >
+                                {invitationCount}
+                            </Text>
+                        </View>
+                    </AppRow>
                 </TouchableOpacity>
             </View>
         </View>

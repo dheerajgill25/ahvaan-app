@@ -7,18 +7,18 @@ import AppHeader from './AppHeader';
 import ActiveHeader from './ActiveHeader';
 
 const TabButton = () => {
-    const [activeTab, setActiveTab] = useState<'Myevents' | 'Myinvitations'>('Myevents');
-    const [activeTabs, setActiveTabs] = useState<'events' | 'invitations'>('events');
+    const [activeTab, setActiveTab] = useState<'events' | 'invitations'>('events');
+
 
 
     return (
         <View style={styles.container}>
-            <AppHeader
+            <ActiveHeader
                 activeTab={activeTab}
                 handleTabChange={setActiveTab}
                 invitationCount={3}
             />
-            {activeTab === 'Myevents' ? (
+            {activeTab === 'events' ? (
                 <EventContainer />
             ) : (
                 <InvitationsContainer />

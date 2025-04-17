@@ -8,7 +8,7 @@ export enum AppRoute {
     SPLASHSCREEN = "SplashScreen",
     SIGNINCONTAINER = "SignInScreen",
     SIGNINUP = "SignInUp",
-    VERIFYOTP = "VerifyOtp",
+    // VERIFYOTP = "VerifyOtp",
     LOGINSCREEN = "LoginScreen",
     LOGINVERIFY = "LoginVerify",
     EVENTCONTAINER = "EventConterner",
@@ -27,7 +27,7 @@ export type AppRouteParam = {
     [AppRoute.SPLASHSCREEN]: undefined;
     [AppRoute.SIGNINCONTAINER]: undefined;
     [AppRoute.SIGNINUP]: undefined;
-    [AppRoute.VERIFYOTP]: undefined;
+    // [AppRoute.VERIFYOTP]: undefined;
     [AppRoute.LOGINSCREEN]: undefined;
     [AppRoute.LOGINVERIFY]: undefined;
     [AppRoute.EVENTCONTAINER]: undefined;

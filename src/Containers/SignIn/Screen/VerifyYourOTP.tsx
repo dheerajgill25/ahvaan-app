@@ -1,27 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
-    Image,
-    ScrollView,
-    TouchableOpacity,
     StyleSheet,
     TextInput,
     Alert,
+    TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import Modal from 'react-native-modal';
 import { useTheme } from '../../../Hooks/useTheme';
-import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 import AppText from '../../../Components/AppText';
 import AppButton from '../../../Components/AppButton';
-import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import AppRow from '../../../Components/AppRow';
+import { AppFontFamily } from '../../../Theme/Utils';
+import { Text } from 'react-native-gesture-handler';
+import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
-import { AppTextInput } from '../../../Components/AppTextInput';
 
-const VerifyYourOTP = () => {
-    const theme = useTheme();
-    const { value } = theme;
+const { value, style } = useTheme();
+const VerifyYourOTPModal = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
+
+    const { value } = useTheme();
 
     const [timer, setTimer] = useState(30);
     const [canResend, setCanResend] = useState(false);
@@ -29,32 +28,28 @@ const VerifyYourOTP = () => {
     const inputRefs = useRef<TextInput[]>([]);
 
     useEffect(() => {
-        let interval: NodeJS.Timeout | undefined = undefined;
+        let interval: NodeJS.Timeout;
         if (timer > 0) {
             setCanResend(false);
-            interval = setInterval(() => {
-                setTimer(prev => prev - 1);
-            }, 1000);
+            interval = setInterval(() => setTimer(prev => prev - 1), 1000);
         } else {
             setCanResend(true);
-            clearInterval(interval);
         }
 
         return () => clearInterval(interval);
     }, [timer]);
 
+    // useEffect(() => {
+    //     if (inputRefs.current[0]) {
+    //         inputRefs.current[0].focus();
+    //     }
+    // }, []);
+
     const handleResend = () => {
         if (canResend) {
-            console.log('Resending OTP...');
-            resendOtpAPI();
             setTimer(30);
+            setTimeout(() => console.log('OTP resent successfully'), 1000);
         }
-    };
-
-    const resendOtpAPI = () => {
-        setTimeout(() => {
-            console.log('OTP resent successfully');
-        }, 1000);
     };
 
     const handleOTPChange = (text: string, index: number) => {
@@ -63,171 +58,170 @@ const VerifyYourOTP = () => {
             newOtp[index] = text;
             setOtp(newOtp);
 
-            if (text && index < 1) {
+            if (text && index < 5) {
                 inputRefs.current[index + 1]?.focus();
             }
         }
     };
 
     const handleOtpSubmit = () => {
+        console.log('OTP array:', otp);
         const isValid = otp.every(d => d !== '');
         if (isValid) {
-            NavigationManager.navigationRef.navigate(AppRoute.LOGINSCREEN);
+            onClose();
+            setTimeout(() => {
+                NavigationManager.navigationRef.navigate(AppRoute.LOGINSCREEN);
+            }, 300);
         } else {
             Alert.alert('Invalid OTP', 'Please enter all 6 digits of the OTP');
         }
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <LinearGradient
-                colors={[value.color.white, value.color.splashlinearcolor]}
-                style={styles.container}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-            >
-                <View style={styles.backgroundImagesContainer}>
-                    <Image
-                        style={styles.backgroundImage1}
-                        source={THEME_DEFAULT_IMAGE.AppSplashScreenImages.splashImage1}
-                    />
-                    <Image
-                        style={styles.backgroundImage2}
-                        source={THEME_DEFAULT_IMAGE.AppSplashScreenImages.splashImage2}
-                    />
-                    <Image
-                        style={styles.backgroundImage3}
-                        source={THEME_DEFAULT_IMAGE.AppSplashScreenImages.splashImage3}
-                    />
-                </View>
+        <Modal
+            isVisible={isVisible}
+            onBackdropPress={onClose}
+            style={styles.modal}
+            swipeDirection="down"
+            backdropColor="black"
+            backdropOpacity={0.3}
+            onSwipeComplete={onClose}
+        >
 
-                <TouchableOpacity style={styles.backButton} onPress={() => NavigationManager.navigationRef.goBack()}>
-                    <Icon name="chevron-left" size={24} color="white" style={{ padding: 10 }} />
+            <View style={styles.modalContent}>
+                <TouchableOpacity style={styles.backButton} onPress={onClose}>
+                    <Text style={{ textAlign: 'center' }} ></Text>
                 </TouchableOpacity>
+                <View style={{ padding: 15 }}>
 
-                <View style={styles.card}>
-                    <View style={{ marginBottom: 40 }}>
-                        <AppText variant="LoginText">Verify Your OTP</AppText>
 
-                        <View style={{ marginTop: 50 }}>
-                            <AppRow gap="13px">
-                                {otp.map((digit, index) => (
-                                    <View key={index} style={styles.OTPInput}>
-                                        <AppTextInput
-                                            keyboardType="number-pad"
-                                            label=""
-                                            backgroundColor={value.color.borderColor}
-                                            value={digit}
-                                            maxLength={1}
-                                            onChangeText={(text) => handleOTPChange(text, index)}
-                                            onKeyPress={({ nativeEvent }) => {
-                                                if (
-                                                    nativeEvent.key === 'Backspace' &&
-                                                    otp[index] === '' &&
-                                                    index > 0
-                                                ) {
-                                                    inputRefs.current[index - 1]?.focus();
-                                                }
-                                            }}
-                                            inputRef={(ref: TextInput) => {
-                                                inputRefs.current[index] = ref;
-                                            }}
-                                        />
-                                    </View>
-                                ))}
-                            </AppRow>
+                    <View style={{ marginBottom: 30 }}>
+                        <AppText style={{ fontSize: value.fontSize.regular, color: value.color.black, fontFamily: AppFontFamily.POPPINS_BOLD }}>
+                            Verify Details
 
-                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginTop: 10 }}>
-                                {canResend ? (
-                                    <TouchableOpacity onPress={handleResend}>
-                                        <AppText variant="smallText">
-                                            You didn’t get any code?{' '}
-                                            <AppText
-                                                variant="smallText"
-                                                style={{
-                                                    color: value.color.black,
-                                                    textDecorationLine: 'underline',
-                                                }}
-                                            >
-                                                Resend
-                                            </AppText>
-                                        </AppText>
-                                    </TouchableOpacity>
-                                ) : (
-                                    <AppText variant="smallText" style={{ color: value.color.gray }}>
-                                        Resend in {timer}s
-                                    </AppText>
-                                )}
-                            </View>
-                        </View>
+                        </AppText>
+                        <AppText variant='smallText'>Otp Sent to +91-8824104115</AppText>
                     </View>
 
-                    <View style={{ marginTop: 100 }}>
+                    <AppRow gap="13px">
+                        {otp.map((digit, index) => (
+                            <View key={index} style={styles.OTPInput}>
+                                <TextInput
+                                    keyboardType="number-pad"
+                                    style={styles.OTPTextInput}
+                                    value={digit}
+                                    maxLength={1}
+                                    onChangeText={(text) => handleOTPChange(text, index)}
+                                    onKeyPress={({ nativeEvent }) => {
+                                        if (
+                                            nativeEvent.key === 'Backspace' &&
+                                            otp[index] === '' &&
+                                            index > 0
+                                        ) {
+                                            inputRefs.current[index - 1]?.focus();
+                                        }
+                                    }}
+                                    ref={(ref) => {
+                                        if (ref) inputRefs.current[index] = ref;
+                                    }}
+                                />
+                            </View>
+                        ))}
+                    </AppRow>
+
+                    <View style={styles.resendContainer}>
+                        {canResend ? (
+                            <TouchableOpacity onPress={handleResend}>
+                                <AppText variant="smallText" style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_REGULAR }}>
+                                    Didn’t receive the OTP?{" "}
+                                    <AppText
+                                        variant="smallText"
+                                        style={styles.resendText}
+                                    >
+                                        Resend
+                                    </AppText>
+                                </AppText>
+                            </TouchableOpacity>
+                        ) : (
+                            <AppText variant="smallText" style={styles.timerText}>
+                                Didn’t receive the OTP?  {timer}s
+                            </AppText>
+                        )}
+                    </View>
+
+                    <View style={styles.buttonContainer}>
                         <AppButton
-                            title="Send OTP"
-                            variant="secondary"
+                            title="VERIFY AND PROCEED"
+                            variant="gradient"
                             textColor={value.color.white}
-                            borderRadius={50}
                             onPress={handleOtpSubmit}
                         />
                     </View>
                 </View>
-            </LinearGradient>
-        </ScrollView>
+            </View>
+        </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
+    modal: {
+        ...style.layout.justifyContentEnd,
+        margin: 0,
+
     },
-    backgroundImagesContainer: {
-        ...StyleSheet.absoluteFillObject,
-        zIndex: 0,
-    },
-    backgroundImage1: {
-        position: 'absolute',
-        top: -120,
-        right: 0,
-        width: 487,
-        height: 356,
-        zIndex: 99,
-        resizeMode: 'contain',
-    },
-    backgroundImage2: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: '100%',
-        height: '80%',
-        resizeMode: 'contain',
-    },
-    backgroundImage3: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 343,
-        height: 375,
-        resizeMode: 'contain',
-        zIndex: 3,
-    },
-    card: {
-        flex: 1,
-        marginTop: 180,
-        backgroundColor: '#fff',
-        borderTopRightRadius: 104,
-        padding: 15,
-        zIndex: 10,
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
+    modalContent: {
+        backgroundColor: value.color.white,
+        minHeight: '55%',
+        ...style.layout.alignItemsCenter
+
     },
     backButton: {
-        marginTop: 10,
+        ...style.gutter.marginTop.tiny,
+        ...style.gutter.marginBottom.small,
+
+        borderColor: value.color.gray,
+        borderBottomWidth: value.metricSize.tiny,
+        borderRadius: value.metricSize.small,
+        width: value.metricSize.extraLarge,
+        height: value.metricSize.small
+
     },
     OTPInput: {
-        width: 44,
+        width: value.metricSize.RowHeight + 3,
+        height: value.metricSize.inputHeight,
+        borderBottomWidth: 1,
+        borderBottomColor: value.color.ActiveColor,
+        borderRadius: 0,
+
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+        backgroundColor: value.color.white,
+    },
+    OTPTextInput: {
+        fontSize: value.fontSize.alternative,
+        fontFamily: AppFontFamily.POPPINS_BOLD,
+        color: value.color.black,
+        ...style.layout.textAlignCenter,
+        ...style.gutter.marginTop.tiny,
+        width: '100%',
+        height: '100%',
+    },
+    resendContainer: {
+        ...style.gutter.marginTop.iconSizeLargr,
+
+    },
+    resendText: {
+        color: value.color.black,
+        textDecorationLine: 'underline',
+        fontFamily: AppFontFamily.POPPINS_BOLD
+    },
+    timerText: {
+        color: value.color.gray,
+    },
+    buttonContainer: {
+        ...style.gutter.marginTop.RowHeight,
+
     },
 });
 
-export default VerifyYourOTP;
+export default VerifyYourOTPModal;

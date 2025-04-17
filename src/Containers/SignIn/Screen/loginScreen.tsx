@@ -9,7 +9,7 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 
 
-const loginScreen = () => {
+const LoginScreen = () => {
     const theme = useTheme();
     const { value, style } = theme;
     return (
@@ -19,7 +19,7 @@ const loginScreen = () => {
                     source={THEME_DEFAULT_IMAGE.GurupImage.groupImage1}
                 
                 /> */}
-                <THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard ></THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard>
+                <THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard />
                 <LinearGradient
                     colors={['rgba(255, 255, 255, 0)', '#C50104', '#A70003']}
                     locations={[0.100, 0.300, 0.38271, 1]}
@@ -60,7 +60,7 @@ const loginScreen = () => {
     );
 };
 
-export default loginScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
