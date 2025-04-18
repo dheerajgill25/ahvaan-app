@@ -19,11 +19,11 @@ import AppHeader from '../../../Components/AppHeader';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import FloatingMenu from '../../MyEvents/Modal/FloatingMenu';
-
+const { value, style } = useTheme();
 
 const FavoriteScreen = () => {
-    const theme = useTheme();
-    const { value } = theme;
+
+    const { value, style } = useTheme();
 
     const [visible, setVisible] = useState(false);
     const events = [{
@@ -35,7 +35,7 @@ const FavoriteScreen = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContent} style={styles.container}>
-            {/* {events.length > 0 ? (
+            {events.length > 0 ? (
                 events.map((event, index) => (
                     <ApplicationCard
                         key={index}
@@ -46,40 +46,39 @@ const FavoriteScreen = () => {
                         onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABS)}
                     />
                 ))
-            ) : ( */}
-            <>
+            ) : (
+                <>
 
-                <THEME_DEFAULT_IMAGE.IconModal.Obeject></THEME_DEFAULT_IMAGE.IconModal.Obeject>
+                    <THEME_DEFAULT_IMAGE.IconModal.Obeject />
 
-                <View style={styles.noEventContainer}>
-                    <AppText
-                        variant='HeaderText'
-                        style={{
-                            color: value.color.black,
-                            fontFamily: AppFontFamily.POPPINS_REGULAR,
-                            textAlign: 'center',
-                            marginBottom: 10
-                        }}
-                    >
-                        You’ve no Favorites yet!
-                    </AppText>
-                    <AppText
-                        variant='smallText'
-                        style={{ textAlign: 'center', marginBottom: 20 }}
-                    >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
-                    </AppText>
+                    <View style={styles.noEventContainer}>
+                        <AppText
+                            variant='HeaderText'
+                            style={{
+                                color: value.color.black,
+                                fontFamily: AppFontFamily.POPPINS_REGULAR,
+                                ...style.layout.textAlignCenter,
+                                ...style.gutter.marginBottom.small
+                            }}
+                        >
+                            You’ve no Favorites yet!
+                        </AppText>
+                        <AppText
+                            variant='smallText'
+                            style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.medium }}
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+                        </AppText>
 
-                </View>
-            </>
-            {/* )} */}
+                    </View>
+                </>
+            )}
 
             <View style={styles.floatingIcon}>
-                <TouchableOpacity onPress={() => setVisible(true)}>
-                    <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                <TouchableOpacity onPress={() => setVisible(prv => !prv)}>
+                    <THEME_DEFAULT_IMAGE.IconModal.Manu />
                 </TouchableOpacity>
             </View>
-
             {visible && (
                 <FloatingMenu visible={visible} onclose={() => setVisible(false)} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.HISTORY_CONTAINER)} />
             )}
@@ -91,33 +90,32 @@ export default FavoriteScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFF8F8',
-        padding: 15,
-        marginTop: -10,
-        paddingTop: 30
+        flex: value.metricSize.oneSmall,
+        backgroundColor: value.color.GradientBackground,
+        ...style.gutter.padding.regular,
     },
     scrollContent: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         // justifyContent: 'center',
-        alignItems: 'center',
+        ...style.layout.alignItemsCenter,
 
     },
     ImgConatiner: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+
     },
     noEventContainer: {
         top: 0,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...style.gutter.padding.small,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
     },
     floatingIcon: {
         position: 'absolute',
-        bottom: 60,
+        bottom: value.metricSize.largeSpace + 6,
         right: 0,
     },
 });

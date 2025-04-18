@@ -6,11 +6,12 @@ import { useTheme } from '../../../Hooks/useTheme';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
-
+import { AppFontFamily } from '../../../Theme/Utils';
+const { value, style } = useTheme()
 const WeddingCard = () => {
-    const { value } = useTheme()
+
     return (
-        <View style={{ backgroundColor: "#FFF8F8", flex: 1 }}>
+        <View style={{ backgroundColor: value.color.GradientBackground, flex: value.metricSize.oneSmall }}>
             <TouchableOpacity activeOpacity={0.8} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.WEDDINGAPPLICTIONCARD)}>
                 <View style={styles.card} >
                     <AppRow gap='10' alignItems='center'>
@@ -18,8 +19,8 @@ const WeddingCard = () => {
                         <THEME_DEFAULT_IMAGE.IconModal.Frame width={32}></THEME_DEFAULT_IMAGE.IconModal.Frame>
                     </AppRow>
 
-                    <AppRow gap='10px' style={{ marginVertical: 5 }}>
-                        <View style={{ width: 100 }}>
+                    <AppRow gap='10px' style={styles.Dateloc2}>
+                        <View style={{ width: value.metricSize.extraLarge }}>
                             <AppText variant='smallText' style={{ color: value.color.black, }}>Host</AppText>
                         </View>
                         <AppText variant='smallText' style={{ color: value.color.black }}>+91 9999999999</AppText>
@@ -27,8 +28,8 @@ const WeddingCard = () => {
 
                     <View style={styles.divider} />
 
-                    <AppRow style={{ marginVertical: 5 }}>
-                        <View style={{ width: 115 }}>
+                    <AppRow style={styles.Dateloc2}>
+                        <View style={styles.Dateloc}>
                             <AppText variant='smallText' style={{ color: value.color.black }}>Date & Time</AppText>
 
                         </View>
@@ -37,8 +38,8 @@ const WeddingCard = () => {
 
                     <View style={styles.divider} />
 
-                    <AppRow style={{ marginVertical: 5 }} >
-                        <View style={{ width: 115 }}>
+                    <AppRow style={styles.Dateloc2} >
+                        <View style={styles.Dateloc}>
                             <AppText variant='smallText' style={{ color: value.color.black }}>Location</AppText>
                         </View>
 
@@ -49,8 +50,8 @@ const WeddingCard = () => {
 
                     <View style={styles.divider} />
 
-                    <AppRow style={{ marginVertical: 5 }}>
-                        <View style={{ width: 115 }}>
+                    <AppRow style={styles.Dateloc2}>
+                        <View style={styles.Dateloc}>
                             <AppText variant='smallText' style={{ color: value.color.black }}>Message</AppText>
 
                         </View>
@@ -64,27 +65,33 @@ const WeddingCard = () => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 16,
-        elevation: 3,
-        margin: 16,
-        shadowColor: '#000',
+        backgroundColor: value.color.white,
+        borderRadius: value.metricSize.smallEx,
+        ...style.gutter.padding.regularEx,
+        elevation: value.metricSize.oneSmall,
+        ...style.gutter.margin.regular,
+
+        shadowColor: value.color.bColor,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
-        marginTop: 40
+        shadowRadius: value.metricSize.tinySmall,
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 16,
+        fontSize: value.metricSize.regularEx,
+        fontFamily: AppFontFamily.POPPINS_BOLD,
     },
 
     divider: {
-        height: 1,
-        backgroundColor: '#DCDCDC',
-        marginVertical: 8,
+        height: value.metricSize.oneSmall,
+        backgroundColor: value.color.bordercolor,
+        ...style.gutter.marginVertical.mini
+
+    },
+    Dateloc: {
+        width: value.metricSize.extraLarge + 15,
+    },
+    Dateloc2: {
+        ...style.gutter.marginVertical.tiny
     },
 });
 

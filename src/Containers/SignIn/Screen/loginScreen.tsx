@@ -9,27 +9,23 @@ import { useTheme } from '../../../Hooks/useTheme';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 
 
+const { value, style } = useTheme();
 const LoginScreen = () => {
-    const theme = useTheme();
-    const { value, style } = theme;
+    const { value, style } = useTheme();
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.imageContainer}>
-                {/* <Image
-                    source={THEME_DEFAULT_IMAGE.GurupImage.groupImage1}
-                
-                /> */}
                 <THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard />
                 <LinearGradient
-                    colors={['rgba(255, 255, 255, 0)', '#C50104', '#A70003']}
+                    colors={[value.color.line, value.color.ActiveColor, value.color.ActiveColor]}
                     locations={[0.100, 0.300, 0.38271, 1]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0, y: 1 }}
                     style={styles.overlayGradient}
                 >
-                    <View style={{ paddingHorizontal: 10, marginTop: 50 }}>
-                        <AppText variant='heading' style={{ textAlign: 'center', marginBottom: 8 }}>Effortlessly Plan And Manage Your Invites</AppText>
-                        <AppText variant='subheading' style={{ textAlign: 'center', marginHorizontal: 30, marginBottom: 10 }}>
+                    <View style={{ ...style.gutter.paddingHorizontal.small, ...style.gutter.marginTop.inputHeight }}>
+                        <AppText variant='heading' style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.mini }}>Effortlessly Plan And Manage Your Invites</AppText>
+                        <AppText variant='subheading' style={{ ...style.layout.textAlignCenter, ...style.gutter.marginHorizontal.iconSizeLargr, ...style.gutter.marginBottom.small }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                         </AppText>
                         <View style={styles.center}>
@@ -38,7 +34,7 @@ const LoginScreen = () => {
                                 title={"Let’s Get In"}
                                 variant='primary'
                                 width="50%"
-                                borderRadius={50}
+                                borderRadius={value.metricSize.extraLarge}
                                 onPress={() => NavigationManager.navigationRef.navigate(AppRoute.TABSCREEN)} />
                         </View>
                         <View style={styles.centers}>
@@ -46,7 +42,7 @@ const LoginScreen = () => {
                                 title={"Sign Up"}
                                 variant='outline'
                                 width="50%"
-                                borderRadius={50}
+                                borderRadius={value.metricSize.extraLarge}
 
                                 onPress={() => NavigationManager.navigationRef.navigate(AppRoute.LOGINVERIFY)}
                             />
@@ -64,8 +60,8 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flex: value.metricSize.oneSmall,
+        backgroundColor: value.color.white,
     },
     imageContainer: {
         position: 'relative',
@@ -77,26 +73,24 @@ const styles = StyleSheet.create({
         top: 200,
         width: '100%',
         height: '150%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...style.layout.justifyContentCenter,
+        ...style.layout.alignItemsCenter,
     },
     gridImage: {
-        width: 415,
-        height: 450,
-        borderRadius: 10,
-        zIndex: -1,
+        borderRadius: value.metricSize.small,
+        zIndex: value.metricSize.oneSmall,
         overflow: 'hidden',
     },
     center: {
-        justifyContent: 'center',
-        gap: "20px",
-        alignItems: 'center'
+        ...style.layout.justifyContentCenter,
+        ...style.gutter.gap.medium,
+        ...style.layout.alignItemsCenter,
     },
     centers: {
-        justifyContent: 'center',
-        gap: "20px",
-        alignItems: 'center',
-        marginTop: 20
+        ...style.layout.justifyContentCenter,
+        ...style.gutter.gap.medium,
+        ...style.layout.alignItemsCenter,
+        ...style.gutter.marginTop.medium,
     }
 
 

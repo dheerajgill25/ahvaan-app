@@ -1,5 +1,6 @@
 import { StatusBarStyle } from "react-native";
 import { normalize } from "../Utils";
+import LinearGradient from "react-native-linear-gradient";
 
 // NOTE Dev: to change the primary color on Android, we gotta change the
 // native style at `android/app/src/res/values/styles.xml`
@@ -67,13 +68,18 @@ export const THEME_DEFAULT_COLOR = {
     Modalborder: "#ECECEC",
     ActiveColor: "#A00707",
     grayaunderline: "#A4A4A4",
-    line: "rgba(217, 217, 217, 0.06)"
+    line: "rgba(217, 217, 217, 0.06)",
+    LinearGradient: "#C7000D",
+    Gradient: "#FEF612",
+    GradientBackground: "#FFF8F8",
+
 };
 
 export type ThemeColor = typeof THEME_DEFAULT_COLOR;
 
 export const THEME_DEFAULT_FONTSIZE = {
     footprint: normalize(12),
+    footSmall: normalize(10),
     small: normalize(14),
     alternative: normalize(16),
     normal: normalize(18),
@@ -92,6 +98,7 @@ export type ThemeFontSize = typeof THEME_DEFAULT_FONTSIZE;
 
 export const THEME_DEFAULT_METRICSIZE = {
     one: normalize(1.5),
+    oneSmall: normalize(1),
     tinyMini: normalize(2.5),
     tinySmall: normalize(4),
     tiny: normalize(5),
@@ -103,6 +110,7 @@ export const THEME_DEFAULT_METRICSIZE = {
     smallEx: normalize(12),
     regularXs: normalize(14),
     regular: normalize(15),
+    regularxxl: normalize(16),
     regularEx: normalize(18),
     medium: normalize(20),
     mediumEx: normalize(22),
@@ -115,8 +123,10 @@ export const THEME_DEFAULT_METRICSIZE = {
     inputHeight: normalize(50),
     inputVerticalPadding: normalize(12),
     largeSpace: normalize(54),
+    largeHeightSpace: normalize(60),
     choiceHeight: normalize(70),
     longTextLineHeight: normalize(27),
     extraLarge: normalize(100),
+    bigextraLarge: normalize(350),
 };
 export type ThemeMetricSize = typeof THEME_DEFAULT_METRICSIZE;

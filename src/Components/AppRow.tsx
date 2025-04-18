@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ViewStyle, StyleSheet, ViewProps } from 'react-native';
-
+import { useTheme } from '../Hooks/useTheme';
+const { value, style } = useTheme();
 interface RowProps extends ViewProps {
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
     justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';

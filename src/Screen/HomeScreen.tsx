@@ -15,11 +15,8 @@ import NavigationManager from '../Navigator/Component/NavigationManager';
 import { AppRoute } from '../Navigator/Component/AppRoute';
 import { THEME_DEFAULT_IMAGE } from '../Theme/Default/Image';
 import { useTheme } from '../Hooks/useTheme';
-
+const { value, style } = useTheme();
 const HomeScreen = () => {
-    const theme = useTheme();
-    const { value } = theme;
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
@@ -50,13 +47,13 @@ const HomeScreen = () => {
                     />
                 </View>
 
-                <View style={{ paddingHorizontal: 5, paddingTop: 100 }}>
+                <View style={{ ...style.gutter.paddingHorizontal.tiny, ...style.gutter.paddingTop.extraLarge }}>
                     <AppText variant='heading' style={{ textAlign: 'center' }}>
                         Effortlessly Plan And Manage Your Invites
                     </AppText>
                     <AppText
                         variant='subheading'
-                        style={{ textAlign: 'center', marginHorizontal: 30, marginBottom: 10 }}
+                        style={{ ...style.layout.textAlignCenter, ...style.gutter.marginHorizontal.iconSizeLargr, ...style.gutter.marginBottom.small }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                     </AppText>
@@ -85,7 +82,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
     },
     backgroundWrapper: {
         ...StyleSheet.absoluteFillObject,
@@ -99,48 +96,49 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     content: {
-        flex: 1,
-        zIndex: 1,
+        flex: value.metricSize.oneSmall,
+        zIndex: value.metricSize.oneSmall,
         paddingTop: 0,
     },
     cardRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        zIndex: 1,
+        ...style.layout.row,
+        ...style.layout.justifyContentBetween,
+        ...style.layout.alignItemsCenter,
+        zIndex: value.metricSize.oneSmall,
     },
     inviteImage: {
-        width: 120,
-        height: 350,
-        borderRadius: 8,
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.mini,
     },
     inviteImage2: {
-        width: 120,
-        height: 250,
-        borderRadius: 8,
-        marginTop: -100,
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge - 100,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.choiceHeight,
     },
     inviteImage3: {
-        width: 120,
-        height: 350,
-        borderRadius: 8,
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.mini,
     },
     buttonRow: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        gap: 20,
-        alignItems: 'center',
-        marginVertical: 30,
+        ...style.layout.row,
+        ...style.layout.justifyContentCenter,
+        ...style.layout.alignItemsCenter,
+        ...style.gutter.marginVertical.iconSizeLargr,
     },
     footerText: {
-        fontSize: 10,
-        color: '#ffffff',
-        paddingHorizontal: 10,
+        fontSize: value.fontSize.footSmall,
+        color: value.color.white,
+        ...style.gutter.paddingHorizontal.small,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
     },
     linkText: {
-        color: '#ffffff',
-        fontSize: 10,
+        color: value.color.white,
+        fontSize: value.fontSize.footSmall,
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
         textDecorationLine: 'underline',
 

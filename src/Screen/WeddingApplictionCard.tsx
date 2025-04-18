@@ -22,17 +22,17 @@ type Props = {
     onPress?: () => void
     date?: string
 };
-
+const { value, style } = useTheme()
 const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress, date, mobileNumber, userName, address }: Props) => {
-    const { value } = useTheme()
+    const { value, style } = useTheme()
     return (
         <>
-            <View style={{ flex: 1, backgroundColor: "#FFF8F8", padding: 5 }}>
-                <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={{ marginTop: 20, }}>
+            <View style={{ flex: 1, backgroundColor: value.color.GradientBackground, ...style.gutter.padding.tiny }}>
+                <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={{ ...style.gutter.marginTop.medium }}>
                     <AppRow gap='10px' style={styles.card}>
-                        <View style={{ marginTop: 20 }}>
+                        <View style={{ ...style.gutter.marginTop.medium }}>
                             <LinearGradient
-                                colors={['#C7000D', '#FEF612']}
+                                colors={[value.color.LinearGradient, value.color.Gradient]}
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 0, y: 1 }}
                                 style={styles.gradientBackground}
@@ -48,10 +48,10 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
                                 <THEME_DEFAULT_IMAGE.IconModal.Frame width={15} height={15}></THEME_DEFAULT_IMAGE.IconModal.Frame>
                             </AppRow>
 
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{dateTime}08/03/2025 , 3.30PM </AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 0 }}>{description} Welcome</AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{dateTime}08/03/2025 , 3.30PM </AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, }}>{description} Welcome</AppText>
                             {/* <AppButton title={'Re-Create'} borderRadius={50} variant='secondary' textColor='white' width={"45%"} /> */}
                         </View>
                         <View>
@@ -74,7 +74,7 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
 
 
                     <AppRow gap='10px' style={styles.card}>
-                        <View style={{ marginTop: 0 }}>
+                        <View>
 
                             <Image source={imageUrl ? { uri: imageUrl } : THEME_DEFAULT_IMAGE.Template.template2} style={styles.images} />
 
@@ -86,10 +86,10 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
                                 <AppText style={{ color: value.color.black, fontFamily: AppFontFamily.POPPINS_MEDIUM, fontSize: value.fontSize.alternative }}>{dateTime}Wedding Party</AppText>
                                 <THEME_DEFAULT_IMAGE.IconModal.Frame width={15} height={15}></THEME_DEFAULT_IMAGE.IconModal.Frame>
                             </AppRow>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{dateTime}08/03/2025 , 3.30PM </AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 5 }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
-                            <AppText variant='subheading' style={{ color: '#000', marginBottom: 10 }}>{description} Welcome</AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{userName}{mobileNumber}Daniel Scott,+91 9999999999</AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{dateTime}08/03/2025 , 3.30PM </AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.tiny }}>{address}Vaishali Nagar, Gautam Marg, Jaipur , Rajasthan, 302016, India </AppText>
+                            <AppText variant='subheading' style={{ color: value.color.black, ...style.gutter.marginBottom.small }}>{description} Welcome</AppText>
                             <AppButton title={'Re-Create'} borderRadius={50} variant='secondary' textColor='white' width={"50%"} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.GuestListConatiner)} />
                         </View>
                         <View>
@@ -115,49 +115,49 @@ const WeddingApplictionCard = ({ title, dateTime, description, imageUrl, onPress
 
 const styles = StyleSheet.create({
     card: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 10,
-        margin: 10,
-        alignItems: 'flex-start',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
+        ...style.layout.row,
+
+        backgroundColor: value.color.white,
+        borderRadius: value.metricSize.small,
+        ...style.gutter.padding.small,
+        ...style.gutter.margin.small,
+        ...style.layout.alignItemsStart,
+        shadowColor: value.color.white,
+        shadowOffset: { width: 0, height: value.metricSize.oneSmall },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 1,
-        borderWidth: 1,
-        borderColor: '#f3f3f3',
+        shadowRadius: value.metricSize.tinySmall,
+        elevation: value.metricSize.oneSmall,
         width: "94%"
     },
     image: {
-        width: 36,
-        height: 69,
-        borderRadius: 5,
+        width: value.metricSize.largeEx + 1,
+        height: value.metricSize.choiceHeight - 1,
+        borderRadius: value.metricSize.tiny,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
         // marginRight: 10,
-        justifyContent: 'center',
-        alignContent: 'center',
-        zIndex: 1
+
+        zIndex: value.metricSize.oneSmall
     },
     images: {
-        width: 68,
-        height: 130,
+        width: value.metricSize.choiceHeight - 2,
+        height: value.metricSize.extraLarge + 30,
         borderRadius: 5,
         // marginRight: 10,
-        justifyContent: 'center',
-        alignContent: 'center',
-        zIndex: 1
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+        zIndex: value.metricSize.oneSmall
     },
     content: {
-        flex: 1,
+        flex: value.metricSize.oneSmall,
     },
 
     gradientBackground: {
-        width: 65,
-        height: 91,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5
+        width: value.metricSize.choiceHeight - 5,
+        height: value.metricSize.extraLarge - 9,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+        borderRadius: value.metricSize.tiny
     },
 });
 

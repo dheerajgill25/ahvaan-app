@@ -20,7 +20,7 @@ interface HeaderProps {
     favorite?: string
 
 }
-
+const { value, style } = useTheme();
 const Header: React.FC<HeaderProps> = ({
     onBackPress,
     onFilterPress,
@@ -30,11 +30,11 @@ const Header: React.FC<HeaderProps> = ({
     Contact,
     favorite
 }) => {
-    const { value } = useTheme();
+
     const [visible, setVisible] = useState(false);
 
     return (
-        <LinearGradient colors={['#e60000', '#cc0000']} style={styles.headerContainer}>
+        <LinearGradient colors={[value.color.ActiveColor, value.color.ActiveColor]} style={styles.headerContainer}>
             <AppRow alignItems="center" justifyContent="space-between" >
                 <TouchableOpacity >
                     <AppRow alignItems="center" gap="10">
@@ -76,15 +76,17 @@ const Header: React.FC<HeaderProps> = ({
 
 const styles = StyleSheet.create({
     headerContainer: {
-        height: 60,
-        paddingHorizontal: 16,
-        paddingVertical: 16,
+        height: value.metricSize.largeHeightSpace,
+
+        ...style.gutter.paddingHorizontal.regular,
+        ...style.gutter.paddingVertical.regular,
+
 
     },
     title: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
+        color: value.color.white,
+        fontSize: value.fontSize.normal,
+        fontFamily: AppFontFamily.POPPINS_BOLD
     },
 });
 

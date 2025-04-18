@@ -18,10 +18,10 @@ interface Props {
     onPress?: () => void;
     favoriteButton?: () => void;
 }
-
+const { value, style } = useTheme();
 const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButton }) => {
-    const theme = useTheme();
-    const { value } = theme;
+
+    const { value, style } = useTheme();
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
     const handleClose = () => {
@@ -43,7 +43,7 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
                     activeOpacity={1}
                 >
                     <View style={styles.modalContent}>
-                        <View style={{ borderBottomColor: value.color.borderColor, borderBottomWidth: 1 }}>
+                        <View style={{ borderBottomColor: value.color.borderColor, borderBottomWidth: value.metricSize.oneSmall }}>
                             <TouchableOpacity
                                 style={styles.item}
                                 onPress={() => {
@@ -55,13 +55,13 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
                                     name="history"
                                     size={20}
                                     color={selectedItem === 'history' ? value.color.secondary : value.color.modaltext}
-                                    style={{ marginLeft: 10 }}
+                                    style={{ ...style.gutter.marginLeft.small }}
                                 />
                                 <AppText
                                     variant="smallText"
                                     style={{
                                         color: selectedItem === 'history' ? value.color.secondary : value.color.modaltext,
-                                        marginLeft: 10,
+                                        ...style.gutter.marginLeft.small,
                                     }}
                                 >
                                     History
@@ -80,13 +80,13 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
                                 name="heart-outline"
                                 size={20}
                                 color={selectedItem === 'favorite' ? value.color.secondary : value.color.modaltext}
-                                style={{ marginLeft: 10 }}
+                                style={{ ...style.gutter.marginLeft.small, }}
                             />
                             <AppText
                                 variant="smallText"
                                 style={{
                                     color: selectedItem === 'favorite' ? value.color.secondary : value.color.modaltext,
-                                    marginLeft: 10,
+                                    ...style.gutter.marginLeft.small,
                                 }}
                             >
                                 Favorite
@@ -101,28 +101,29 @@ const FloatingMenu: React.FC<Props> = ({ visible, onclose, onPress, favoriteButt
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: value.metricSize.oneSmall,
     },
     modalOverlay: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        top: -110,
+        flex: value.metricSize.oneSmall,
+        ...style.layout.justifyContentEnd,
+        ...style.layout.alignItemsEnd,
+        bottom: value.metricSize.extraLarge + 10,
         left: 0,
-        padding: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0)',
+        ...style.gutter.padding.medium,
+        backgroundColor: value.color.transparent,
     },
     modalContent: {
-        width: 140,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        paddingVertical: 10,
-        elevation: 1,
+        width: value.metricSize.extraLarge + 40,
+        backgroundColor: value.color.white,
+        borderRadius: value.metricSize.tiny,
+        ...style.gutter.paddingVertical.small,
+
+        elevation: value.metricSize.oneSmall,
     },
     item: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
+        ...style.layout.row,
+        ...style.layout.alignItemsCenter,
+        ...style.gutter.padding.small,
     },
 });
 

@@ -21,10 +21,10 @@ import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import FloatingMenu from '../../MyEvents/Modal/FloatingMenu';
 import { useFocusEffect } from '@react-navigation/native';
 
-
+const { value, style } = useTheme();
 const HistoryContainer = () => {
-    const theme = useTheme();
-    const { value } = theme;
+
+    const { value, style } = useTheme();
 
     const [visible, setVisible] = useState(false);
 
@@ -56,7 +56,7 @@ const HistoryContainer = () => {
             ) : (
                 <>
 
-                    <View style={{ marginTop: 40 }}>
+                    <View style={{ ...style.gutter.marginBottom.medium }}>
                         <THEME_DEFAULT_IMAGE.Template.error />
                     </View>
 
@@ -66,15 +66,15 @@ const HistoryContainer = () => {
                             style={{
                                 color: value.color.black,
                                 fontFamily: AppFontFamily.POPPINS_REGULAR,
-                                textAlign: 'center',
-                                marginBottom: 10
+                                ...style.layout.textAlignCenter,
+                                ...style.gutter.marginBottom.small
                             }}
                         >
                             You’ve no History yet!
                         </AppText>
                         <AppText
                             variant='smallText'
-                            style={{ textAlign: 'center', marginBottom: 20 }}
+                            style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.medium }}
                         >
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
                         </AppText>
@@ -85,7 +85,7 @@ const HistoryContainer = () => {
 
             <View style={styles.floatingIcon}>
                 <TouchableOpacity onPress={() => setVisible(prv => !prv)}>
-                    <Icon name="microsoft-xbox-controller-menu" size={35} color={value.color.secondary} />
+                    <THEME_DEFAULT_IMAGE.IconModal.Manu />
                 </TouchableOpacity>
             </View>
 
@@ -104,32 +104,32 @@ export default HistoryContainer;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFF8F8',
-        padding: 15,
-        paddingTop: 10
+        flex: value.metricSize.oneSmall,
+        backgroundColor: value.color.GradientBackground,
+        ...style.gutter.padding.regular,
     },
     scrollContent: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         // justifyContent: 'center',
-        alignItems: 'center',
+        ...style.layout.alignItemsCenter
 
     },
     ImgConatiner: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter
+
     },
     noEventContainer: {
-        top: -0,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+
+        ...style.gutter.padding.small,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter
     },
     floatingIcon: {
         position: 'absolute',
-        bottom: 60,
+        bottom: value.metricSize.largeSpace + 6,
         right: 0,
     },
 });

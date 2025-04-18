@@ -62,7 +62,7 @@ const LoginVerify = () => {
                         <THEME_DEFAULT_IMAGE.BackGroundImageScreen.GroupCard width="100%" height="90%" />
                     </View>
                     <LinearGradient
-                        colors={['rgba(255,255,255,0)', '#C50104', '#A70003']}
+                        colors={[value.color.line, value.color.ActiveColor, value.color.ActiveColor]}
                         locations={[0.1, 0.2, 0.98271, 1]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
@@ -91,16 +91,16 @@ const LoginVerify = () => {
                                         backgroundColor={value.color.white}
                                         borderRadius={{
                                             borderTopLeftRadius: 0,
-                                            borderBottomLeftRadius: 10,
+                                            borderBottomLeftRadius: value.metricSize.small,
                                             borderTopRightRadius: 0,
-                                            borderBottomRightRadius: 10,
+                                            borderBottomRightRadius: value.metricSize.small,
                                         }}
                                         value={phoneNumber}
                                         onChangeText={(text) => {
                                             setPhoneNumber(text);
                                             validatePhoneNumber(text);
                                         }}
-                                        maxLength={10}
+                                        maxLength={value.metricSize.small}
                                         hideBorderSides={['left']}
                                     />
                                 </View>
@@ -113,7 +113,7 @@ const LoginVerify = () => {
                                     Placeholder="Enter Your Password"
                                     secureTextEntry
                                     backgroundColor={value.color.white}
-                                    borderRadius={{ borderRadius: 10 }}
+                                    borderRadius={{ borderRadius: value.metricSize.small }}
                                     labelColor={value.color.white}
                                     value={pin}
                                     onChangeText={(text) => {
@@ -131,7 +131,7 @@ const LoginVerify = () => {
                             </AppRow>
 
                             <View style={styles.centerButton}>
-                                <AppButton title="Login" variant="primary" width="50%" borderRadius={50} onPress={handleLogin} />
+                                <AppButton title="Login" variant="primary" width="50%" borderRadius={value.metricSize.extraLarge} onPress={handleLogin} />
                             </View>
                         </View>
                     </View>
@@ -144,17 +144,17 @@ const LoginVerify = () => {
 export default LoginVerify;
 
 const styles = StyleSheet.create({
-    flex: { flexGrow: 1 },
-    container: { flexGrow: 1, backgroundColor: value.color.white },
+    flex: { flexGrow: value.metricSize.oneSmall },
+    container: { flexGrow: value.metricSize.oneSmall, backgroundColor: value.color.white },
     imageContainer: { height: screenHeight },
     backgroundImage: { marginTop: -100 },
     overlayGradient: {
         position: 'absolute',
-        top: 100,
+        top: value.metricSize.extraLarge,
         width: '100%',
         height: '150%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
         ...style.gutter.paddingVertical.medium,
     },
     formContainer: {
@@ -162,16 +162,20 @@ const styles = StyleSheet.create({
         top: 320,
         width: '100%',
         ...style.gutter.paddingHorizontal.medium,
-        zIndex: 1,
+        zIndex: value.metricSize.oneSmall,
     },
-    formSpacing: { paddingTop: 20 },
-    countryPicker: { width: 80, marginTop: 20 },
-    inputFlex: { flex: 1, marginTop: 20, marginLeft: 0 },
+    formSpacing: { ...style.gutter.paddingTop.medium },
+    countryPicker: { width: value.metricSize.choiceHeight + 10, ...style.gutter.marginTop.medium },
+    inputFlex: { flex: value.metricSize.oneSmall, ...style.gutter.marginTop.medium, marginLeft: 0 },
     passwordInput: { width: '100%', ...style.gutter.marginVertical.medium },
-    textWhite: { color: value.color.white, marginLeft: 5, marginBottom: -18 },
-    errorText: { color: value.color.white, marginTop: 5, paddingLeft: 10 },
-    forgotText: { textDecorationLine: 'underline', marginTop: 5, color: value.color.white },
+    textWhite: { color: value.color.white, ...style.gutter.marginTop.tiny, marginBottom: -18 },
+    errorText: { color: value.color.white, ...style.gutter.marginTop.tiny, ...style.gutter.paddingLeft.small },
+    forgotText: { textDecorationLine: 'underline', ...style.gutter.marginTop.tiny, color: value.color.white },
     boldText: { fontFamily: AppFontFamily.POPPINS_BOLD },
     semiBoldText: { fontFamily: AppFontFamily.POPPINS_SEMI_BOLD },
-    centerButton: { justifyContent: 'center', alignItems: 'center', marginTop: 20 },
+    centerButton: {
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+        ...style.gutter.marginTop.medium
+    },
 });

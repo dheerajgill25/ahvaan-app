@@ -21,39 +21,40 @@ function useAppTextInputStyle(fillParent: boolean, isCountryCode?: boolean) {
             fontSize: value.fontSize.small,
             fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
             color: value.color.black,
-            marginBottom: 4,
-            marginLeft: 5,
+            ...style.gutter.marginBottom.tinySmall,
+            ...style.gutter.marginLeft.tiny,
         },
         containerInput: {
             ...style.gutter.paddingRight.small,
             ...(fillParent ? style.layout.fill : {}),
-
-            paddingVertical: 10,
-            paddingHorizontal: 16,
+            ...style.gutter.paddingVertical.small,
+            ...style.gutter.paddingHorizontal.regularxxl,
             ...(isCountryCode ? style.gutter.paddingLeft.inputHeight : {}),
         },
         placeholder: {
             position: "absolute",
-            left: 16,
-            top: 10,
+            left: value.metricSize.regularxxl,
+            top: value.metricSize.small,
             fontSize: value.fontSize.small,
             fontFamily: AppFontFamily.POPPINS_MEDIUM,
-            zIndex: 1,
+            zIndex: value.metricSize.oneSmall,
         },
         inputBase: {
-            flex: 1,
-            paddingVertical: 10,
-            paddingHorizontal: 16,
-            fontSize: 14,
+            flex: value.metricSize.oneSmall,
+            ...style.gutter.paddingVertical.small,
+            ...style.gutter.paddingHorizontal.regularxxl,
+
+            fontSize: value.fontSize.small,
             fontFamily: AppFontFamily.POPPINS_REGULAR,
-            height: 48,
-            color: "#000",
+            height: value.metricSize.inputHeight - 2,
+            color: value.color.black,
         },
         errorText: {
             fontSize: value.fontSize.footprint,
             fontFamily: AppFontFamily.POPPINS_REGULAR,
             color: value.color.danger,
-            marginTop: 5,
+            ...style.gutter.marginTop.tiny
+
         },
     });
 }

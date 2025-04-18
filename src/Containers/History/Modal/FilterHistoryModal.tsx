@@ -22,10 +22,10 @@ interface Props {
     onPress?: () => void;
     favoriteButton?: () => void;
 }
-
+const { value, style } = useTheme();
 const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress }) => {
-    const theme = useTheme();
-    const { value } = theme;
+
+    const { value, style } = useTheme();
 
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -38,8 +38,8 @@ const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress }) => {
             <Text
                 style={{
                     borderBottomColor: value.color.Modalborder,
-                    borderBottomWidth: 1,
-                    width: 110,
+                    borderBottomWidth: value.metricSize.oneSmall,
+                    width: value.metricSize.extraLarge + 10,
                 }}
             />
         </AppRow>
@@ -65,14 +65,14 @@ const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress }) => {
         return (
             <TouchableOpacity onPress={() => handleSelect(label, navigateTo)} activeOpacity={0.7}>
                 <AppRow>
-                    <View style={{ marginLeft: 10 }}>
+                    <View style={{ ...style.gutter.marginLeft.small }}>
                         {React.cloneElement(IconComponent, { color: iconColor })}
                     </View>
-                    <AppText 
+                    <AppText
                         variant="smallText"
                         style={{
                             color: iconColor,
-                            marginLeft: 10,
+                            ...style.gutter.marginLeft.small
                         }}
                     >
                         {label}
@@ -110,18 +110,18 @@ const FilterHistoryModal: React.FC<Props> = ({ visible, onclose, onPress }) => {
 
 const styles = StyleSheet.create({
     modalOverlay: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        paddingTop: 60,
-        paddingLeft: 230,
-        backgroundColor: 'rgba(0, 0, 0, 0.01)',
+        flex: value.metricSize.oneSmall,
+        ...style.layout.alignItemsStart,
+        ...style.layout.justifyContentStart,
+        ...style.gutter.paddingTop.largeHeightSpace,
+        paddingLeft: 240,
+        backgroundColor: value.color.transparent,
     },
     modalContent: {
-        width: 115,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        paddingVertical: 10,
+        width: value.metricSize.extraLarge + 10,
+        backgroundColor: value.color.white,
+        borderRadius: value.metricSize.tiny,
+        ...style.gutter.paddingVertical.small,
         elevation: 2,
     },
 });

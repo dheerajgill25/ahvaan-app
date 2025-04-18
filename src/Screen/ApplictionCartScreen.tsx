@@ -5,7 +5,7 @@ import { AppFontFamily } from '../Theme/Utils';
 import LinearGradient from 'react-native-linear-gradient';
 import AppRow from '../Components/AppRow';
 import { useTheme } from '../Hooks/useTheme';
-
+const { value, style } = useTheme()
 type Props = {
     title: string;
     dateTime: string;
@@ -24,7 +24,7 @@ const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date
             <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
                 <AppRow gap='10px' style={styles.card}>
                     <LinearGradient
-                        colors={['#C7000D', '#FEF612']}
+                        colors={[value.color.LinearGradient, value.color.Gradient]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
                         style={styles.gradientBackground}
@@ -34,7 +34,7 @@ const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date
 
                     <View style={styles.content}>
                         <AppText variant='smallText' style={styles.date}>{dateTime}</AppText>
-                        <AppText variant='smallText' style={{ fontFamily: AppFontFamily.POPPINS_MEDIUM, color: '#000' }}>{title}</AppText>
+                        <AppText variant='smallText' style={{ fontFamily: AppFontFamily.POPPINS_MEDIUM, color: value.color.black }}>{title}</AppText>
                         <AppText variant='subheading' style={styles.description}>{description}</AppText>
                     </View>
                     <View>
@@ -52,45 +52,44 @@ const ApplicationCard = ({ title, dateTime, description, imageUrl, onPress, date
 const styles = StyleSheet.create({
 
     card: {
-
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 10,
-        alignItems: 'flex-start',
-        shadowColor: '#000',
+        backgroundColor: value.color.white,
+        borderRadius: value.metricSize.small,
+        ...style.gutter.padding.small,
+        ...style.layout.alignItemsStart,
+        shadowColor: value.color.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
+        shadowRadius: value.metricSize.tinySmall,
         elevation: 1,
-
         width: "100%"
     },
     gradientBackground: {
         width: width * 0.18,
         height: height * 0.13,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
+        borderRadius: value.metricSize.tiny,
     },
     image: {
         width: width * 0.10,
         height: height * 0.10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignContent: 'center',
+        borderRadius: value.metricSize.tiny,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
         zIndex: 1,
     },
     content: {
         flex: 1,
     },
     date: {
-        fontSize: 10,
-        color: '#000',
-        marginBottom: 4,
+        fontSize: value.fontSize.footSmall,
+        color: value.color.black,
+
+        ...style.gutter.marginBottom.tinySmall,
     },
 
     description: {
-        color: '#7D7D7D',
+        color: value.color.modaltext,
     },
 
 });

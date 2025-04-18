@@ -21,10 +21,10 @@ import NavigationManager from '../Navigator/Component/NavigationManager';
 import { AppRoute } from '../Navigator/Component/AppRoute';
 import AppRow from '../Components/AppRow';
 
-
+const { value, style } = useTheme();
 const SplashScreen = () => {
-    const theme = useTheme();
-    const { value, style } = theme;
+
+
     return (
 
         <ScrollView contentContainerStyle={styles.container}>
@@ -65,8 +65,8 @@ const SplashScreen = () => {
                 </View>
 
                 <View style={{ paddingHorizontal: 10, marginTop: 100 }}>
-                    <AppText variant='heading' style={{ textAlign: 'center', marginBottom: 8 }}>Effortlessly Plan And Manage Your Invites</AppText>
-                    <AppText variant='subheading' style={{ textAlign: 'center', marginHorizontal: 30, marginBottom: 10 }}>
+                    <AppText variant='heading' style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.mini }}>Effortlessly Plan And Manage Your Invites</AppText>
+                    <AppText variant='subheading' style={{ ...style.layout.textAlignCenter, ...style.gutter.marginHorizontal.iconSizeLargr, ...style.gutter.marginBottom.small }}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                     </AppText>
 
@@ -99,52 +99,55 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
 
     backgroundImage: {
-        flex: 1,
+        flex: value.metricSize.oneSmall,
 
     },
     container: {
-        flex: 1,
+        flex: value.metricSize.oneSmall,
 
     },
     cardRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        ...style.layout.row,
+        ...style.layout.justifyContentBetween,
+        ...style.layout.alignItemsCenter,
 
 
     },
     hangingCard: {
-        alignItems: 'center',
+        ...style.layout.alignItemsCenter,
     },
 
     inviteImage: {
-        width: 120,
-        height: 350,
-        borderRadius: 8,
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.mini,
     },
     inviteImage2: {
-        width: 120,
-        height: 250,
-        borderRadius: 8,
-        marginTop: -100
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge - 100,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.choiceHeight,
+
     },
     inviteImage3: {
-        width: 120,
-        height: 350,
-        borderRadius: 8,
+        width: value.metricSize.extraLarge + 20,
+        height: value.metricSize.bigextraLarge,
+        borderRadius: value.metricSize.mini,
+        bottom: value.metricSize.mini,
     },
 
     footerText: {
-        fontSize: 10,
-        color: "white",
-        paddingTop: 50,
-        paddingHorizontal: 5,
+        fontSize: value.fontSize.footSmall,
+        color: value.color.white,
+        ...style.gutter.paddingTop.inputHeight,
+        ...style.gutter.paddingHorizontal.tiny,
         fontFamily: AppFontFamily.POPPINS_REGULAR,
     },
     linkText: {
-        color: '#ffffff',
+        color: value.color.white,
         textDecorationLine: 'underline',
-        fontSize: 10,
+        fontSize: value.fontSize.footSmall,
         fontFamily: AppFontFamily.POPPINS_SEMI_BOLD,
 
     },

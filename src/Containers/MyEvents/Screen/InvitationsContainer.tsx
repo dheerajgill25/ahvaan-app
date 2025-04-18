@@ -20,9 +20,9 @@ import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import FloatingMenu from '../Modal/FloatingMenu';
 
+const { value, style } = useTheme();
 const InvitationsContainer = () => {
-    const theme = useTheme();
-    const { value } = theme;
+
 
     const [visible, setVisible] = useState(false);
     const events = [{
@@ -47,8 +47,8 @@ const InvitationsContainer = () => {
                 ))
             ) : ( */}
             <>
-                <View style={{ marginTop: 40 }}>
-                    <THEME_DEFAULT_IMAGE.Template.error2 style={{ marginVertical: 0 }}></THEME_DEFAULT_IMAGE.Template.error2>
+                <View style={{ ...style.gutter.marginTop.RowHeight }}>
+                    <THEME_DEFAULT_IMAGE.Template.error2 />
                 </View>
 
 
@@ -58,21 +58,21 @@ const InvitationsContainer = () => {
                         style={{
                             color: value.color.black,
                             fontFamily: AppFontFamily.POPPINS_REGULAR,
-                            textAlign: 'center',
-                            marginBottom: 10
+                            ...style.layout.textAlignCenter,
+                            ...style.gutter.marginBottom.small
                         }}
                     >
                         You’ve no Invitations yet!
                     </AppText>
                     <AppText
                         variant='smallText'
-                        style={{ textAlign: 'center', marginBottom: 20 }}
+                        style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.medium }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
                     </AppText>
                     <AppButton
-                        borderRadius={50}
-                        variant='secondary'
+                        borderRadius={value.metricSize.extraLarge}
+                        variant='gradient'
                         textColor={value.color.white}
                         title='Create Events Now'
                     />
@@ -97,33 +97,30 @@ export default InvitationsContainer;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFF8F8',
-        padding: 15,
-        marginTop: "auto",
-        paddingTop: 10
+        flex: value.metricSize.oneSmall,
+        backgroundColor: value.color.GradientBackground,
+        ...style.gutter.padding.regular,
     },
     scrollContent: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         // justifyContent: 'center',
-        alignItems: 'center',
-
+        ...style.layout.alignItemsCenter
     },
     ImgConatiner: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
     },
     noEventContainer: {
         top: 0,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...style.gutter.padding.small,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter,
     },
     floatingIcon: {
         position: 'absolute',
-        bottom: 60,
+        bottom: value.metricSize.largeHeightSpace,
         right: 0,
     },
 });

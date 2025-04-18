@@ -4,7 +4,8 @@ import { findIndex } from 'lodash';
 import { IDropdownRef } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
 import { Dropdown } from 'react-native-element-dropdown';
 import { AppFontFamily } from '../Theme/Utils';
-
+import { useTheme } from '../Hooks/useTheme';
+const { value, style } = useTheme();
 interface ExampleSelectProps {
     label?: string;
     required?: boolean;
@@ -22,7 +23,7 @@ interface ExampleSelectProps {
         borderBottomLeftRadius?: number;
         borderBottomRightRadius?: number;
     };
-    hideBorderSides?: ("top" | "bottom" | "left" | "right")[]; // 👈 NEW PROP
+    hideBorderSides?: ("top" | "bottom" | "left" | "right")[];
 }
 
 const AppSelect: React.FC<ExampleSelectProps> = ({
@@ -35,7 +36,7 @@ const AppSelect: React.FC<ExampleSelectProps> = ({
     isFlex,
     labelField,
     valueField,
-    backgroundColor = '#fff',
+    backgroundColor = value.color.white,
     customBorderRadius = {},
     hideBorderSides = [],
     ...props
@@ -103,7 +104,7 @@ export default AppSelect;
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 10,
+        ...style.gutter.marginBottom.small,
     },
     labelRow: {
         flexDirection: 'row',

@@ -6,23 +6,18 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-
 import { THEME_DEFAULT_IMAGE } from '../../../Theme/Default/Image';
 import { useTheme } from '../../../Hooks/useTheme';
 import AppText from '../../../Components/AppText';
 import { AppFontFamily } from '../../../Theme/Utils';
 import AppButton from '../../../Components/AppButton';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ApplicationCard from '../../../Screen/ApplictionCartScreen';
-import AppHeader from '../../../Components/AppHeader';
-import InvitationsContainer from './InvitationsContainer';
 import NavigationManager from '../../../Navigator/Component/NavigationManager';
 import { AppRoute } from '../../../Navigator/Component/AppRoute';
 import FloatingMenu from '../Modal/FloatingMenu';
-
+const { value, style } = useTheme();
 const EventContainer = () => {
-    const theme = useTheme();
-    const { value } = theme;
+
 
     const [visible, setVisible] = useState(false);
     const events = [{
@@ -47,44 +42,41 @@ const EventContainer = () => {
                 ))
             ) : (
                 <>
-
                     <THEME_DEFAULT_IMAGE.Template.GroupData></THEME_DEFAULT_IMAGE.Template.GroupData>
-
                     <View style={styles.noEventContainer}>
                         <AppText
                             variant='HeaderText'
                             style={{
                                 color: value.color.black,
                                 fontFamily: AppFontFamily.POPPINS_REGULAR,
+                                ...style.layout.textAlignCenter,
                                 textAlign: 'center',
-                                marginBottom: 10
+                                ...style.gutter.marginBottom.small
                             }}
                         >
                             You’ve no Events yet!
                         </AppText>
                         <AppText
                             variant='smallText'
-                            style={{ textAlign: 'center', marginBottom: 20 }}
+                            style={{ ...style.layout.textAlignCenter, ...style.gutter.marginBottom.medium }}
                         >
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
                         </AppText>
                         <AppButton
-                            borderRadius={50}
-                            variant='secondary'
+                            borderRadius={value.metricSize.extraLarge}
+                            variant='gradient'
                             textColor={value.color.white}
                             title='Create Events Now'
                         />
                     </View>
                 </>
             )}
-
             <View style={styles.floatingIcon}>
                 <TouchableOpacity onPress={() => setVisible(prv => !prv)}>
                     <THEME_DEFAULT_IMAGE.IconModal.Manu />
 
                 </TouchableOpacity>
             </View>
-
             {visible && (
                 <FloatingMenu visible={visible} onclose={() => setVisible(false)} onPress={() => NavigationManager.navigationRef.navigate(AppRoute.HISTORY_CONTAINER)} />
             )}
@@ -93,36 +85,32 @@ const EventContainer = () => {
 };
 
 export default EventContainer;
-
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFF8F8',
-        padding: 15,
-        marginTop: "auto",
-        paddingTop: 10
+        flex: value.metricSize.oneSmall,
+        backgroundColor: value.color.GradientBackground,
+        ...style.gutter.padding.regular,
     },
     scrollContent: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         // justifyContent: 'center',
-        alignItems: 'center',
-
+        ...style.layout.alignItemsCenter
     },
     ImgConatiner: {
-        flexGrow: 1,
+        flexGrow: value.metricSize.oneSmall,
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter
     },
     noEventContainer: {
         top: 0,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...style.gutter.padding.small,
+        ...style.layout.alignItemsCenter,
+        ...style.layout.justifyContentCenter
     },
     floatingIcon: {
         position: 'absolute',
-        bottom: 60,
+        bottom: value.metricSize.largeHeightSpace,
         right: 0,
     },
 });

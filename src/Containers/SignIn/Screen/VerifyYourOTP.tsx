@@ -92,10 +92,10 @@ const VerifyYourOTPModal = ({ isVisible, onClose }: { isVisible: boolean; onClos
                 <TouchableOpacity style={styles.backButton} onPress={onClose}>
                     <Text style={{ textAlign: 'center' }} ></Text>
                 </TouchableOpacity>
-                <View style={{ padding: 15 }}>
+                <View style={{ padding: value.metricSize.regularXs + 1 }}>
 
 
-                    <View style={{ marginBottom: 30 }}>
+                    <View style={{ marginBottom: value.metricSize.iconSizeLargr }}>
                         <AppText style={{ fontSize: value.fontSize.regular, color: value.color.black, fontFamily: AppFontFamily.POPPINS_BOLD }}>
                             Verify Details
 
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     backButton: {
         ...style.gutter.marginTop.tiny,
         ...style.gutter.marginBottom.small,
-
         borderColor: value.color.gray,
         borderBottomWidth: value.metricSize.tiny,
         borderRadius: value.metricSize.small,

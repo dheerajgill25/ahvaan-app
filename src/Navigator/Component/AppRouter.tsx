@@ -23,6 +23,7 @@ import WeddingApplictionCard from "../../Screen/WeddingApplictionCard";
 import { THEME_DEFAULT_IMAGE } from "../../Theme/Default/Image";
 import GuestListConatiner from "../../Containers/GuestList/Screen/GuestListConatiner";
 import ProfileData from "../../MyProfile/Screen/ProfileData";
+import ImagePickerScreen from "../../Components/ImagePickerModal";
 
 
 
@@ -146,6 +147,7 @@ const AppRouter = () => {
                     component={ProfileData}
                     options={{ headerShown: false }}
                 />
+
             </Stack.Navigator>
         </NavigationContainer>
 

@@ -79,7 +79,7 @@ const AppButton: React.FC<AppButtonProps> = ({
                     style={[containerStyles, { borderRadius }]}
                 >
                     <View style={styles.content}>
-                        <AppRow gap='10'>
+                        <AppRow gap='10' alignItems='center'>
                             <AppText style={textStyles} variant='heading'>{title}</AppText>
                             {icon && <View>{icon}</View>}
                         </AppRow>
@@ -89,7 +89,7 @@ const AppButton: React.FC<AppButtonProps> = ({
             ) : (
                 <View style={containerStyles}>
                     <View style={styles.content}>
-                        <AppRow gap='10'>
+                        <AppRow gap='10' alignItems='center'>
                             <AppText style={textStyles} variant='heading'>{title}</AppText>
                             {icon && <View>{icon}</View>}
                         </AppRow>
